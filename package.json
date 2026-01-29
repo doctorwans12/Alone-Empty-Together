@@ -1,0 +1,21 @@
+{
+  "name": "fighters-path",
+  "version": "1.0.0",
+  "description": "Fighter style quiz + Stripe payments + weekly email roadmap (100 steps) using Node.js, Stripe, Nodemailer, Cron, LowDB.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "lowdb": "^1.0.0",
+    "node-cron": "^3.0.3",
+    "nodemailer": "^7.0.13",
+    "stripe": "^16.12.0"
+  }
+}

@@ -60,6 +60,8 @@ const transporter = nodemailer.createTransport({
 });
 
 // ---- HELPERS ----
+const allowedPlans = new Set(["striker", "grappler", "hybrid", "traditional"]);
+
 function getBaseUrl(req) {
   // Dacă ai BASE_URL în env (pentru deploy), îl folosim.
   // Altfel, îl construim din request.
@@ -108,8 +110,37 @@ async function sendWeeklyEmail(user) {
   return true;
 }
 
-// ---- CRON: every Monday at 09:00 server time ----
-cron.schedule("0 9 * * 1", async () => {
+async function sendWelcomeEmail(email) {
+  const welcomeText = weeklyContent[0] || "Welcome!";
+  const welcomeMail = {
+    from: `"Personal Trainer" <${process.env.GMAIL_USER}>`,
+    to: email,
+    subject: "Important: Your Training Results",
+    text: `Hi! Thank you for subscribing.\n\nHere is your professional roadmap (Week 1):\n\n${welcomeText}`,
+  };
+
+  await transporter.sendMail(welcomeMail);
+
+  db.get("subscribers")
+    .find({ email })
+    .assign({
+      currentWeek: 1,
+      lastSentAt: new Date().toISOString(),
+    })
+    .write();
+
+  console.log("✅ Welcome email sent!");
+  return true;
+}
+
+function shouldSendWelcome(user) {
+  if (!user) return true;
+  if (user.currentWeek > 0) return false;
+  return !user.lastSentAt;
+}
+
+// ---- CRON: every day at 09:00 server time ----
+cron.schedule("0 9 * * *", async () => {
   try {
     console.log("🔔 Weekly email cron started...");
     const subscribers = db.get("subscribers").value();
@@ -153,8 +184,7 @@ app.get("/pay-session", async (req, res) => {
   const choice = (req.query.choice || "").trim();
 
   // validate choice (so you don’t store junk)
-  const allowedPlans = ["striker", "grappler", "hybrid", "traditional", "power", "speed", "stamina"];
-  if (!allowedPlans.includes(choice)) {
+  if (!allowedPlans.has(choice)) {
     return res.status(400).send("Invalid plan/choice.");
   }
 
@@ -194,6 +224,12 @@ app.get("/success", async (req, res) => {
   try {
     const session = await stripe.checkout.sessions.retrieve(session_id);
     const customerEmail = safeEmailFromSession(session);
+    const sessionPlan = session?.metadata?.plan;
+    const sessionIsSub = session?.metadata?.isSub;
+    const resolvedPlan = sessionPlan || plan || "";
+    const resolvedIsSub = sessionIsSub || isSub || "";
+    const redirectPlan = allowedPlans.has(resolvedPlan) ? resolvedPlan : "";
+    const storedPlan = allowedPlans.has(resolvedPlan) ? resolvedPlan : "unknown";
 
     if (!customerEmail) {
       console.log("❌ No email found in Stripe session.");
@@ -201,15 +237,16 @@ app.get("/success", async (req, res) => {
     }
 
     // dacă e abonament -> salvăm userul și îi trimitem welcome imediat
-    if (isSub === "true") {
+    if (resolvedIsSub === "true") {
       const userExists = db.get("subscribers").find({ email: customerEmail }).value();
+      const shouldWelcome = shouldSendWelcome(userExists);
 
       if (!userExists) {
         db.get("subscribers")
           .push({
             email: customerEmail,
             currentWeek: 0,
-            plan: plan || "unknown",
+            plan: storedPlan,
             isSub: true,
             createdAt: new Date().toISOString(),
             lastSentAt: null,
@@ -217,31 +254,33 @@ app.get("/success", async (req, res) => {
           .write();
 
         console.log(`👤 New subscriber saved: ${customerEmail}`);
+
+        if (shouldWelcome) {
+          try {
+            await sendWelcomeEmail(customerEmail);
+          } catch (err) {
+            console.log("❌ Welcome email error:", err.message);
+          }
+        }
       } else {
         // dacă există deja, asigurăm isSub true
         db.get("subscribers")
           .find({ email: customerEmail })
-          .assign({ isSub: true, plan: plan || userExists.plan })
+          .assign({ isSub: true, plan: storedPlan || userExists.plan })
           .write();
+
+        if (shouldWelcome) {
+          try {
+            await sendWelcomeEmail(customerEmail);
+          } catch (err) {
+            console.log("❌ Welcome email error:", err.message);
+          }
+        }
       }
-
-      // Send welcome email (Week 1 / Day 1)
-      const welcomeText = weeklyContent[0] || "Welcome!";
-      const welcomeMail = {
-        from: `"Personal Trainer" <${process.env.GMAIL_USER}>`,
-        to: customerEmail,
-        subject: "Important: Your Training Results",
-        text: `Hi! Thank you for subscribing.\n\nHere is your professional roadmap (Week 1):\n\n${welcomeText}`,
-      };
-
-      transporter.sendMail(welcomeMail, (err) => {
-        if (err) console.log("❌ Welcome email error:", err.message);
-        else console.log("✅ Welcome email sent!");
-      });
     }
 
     // redirect back to frontend with params
-    return res.redirect(`/?session_id=${encodeURIComponent(session_id)}&plan=${encodeURIComponent(plan || "")}&isSub=${encodeURIComponent(isSub || "")}`);
+    return res.redirect(`/?session_id=${encodeURIComponent(session_id)}&plan=${encodeURIComponent(redirectPlan)}&isSub=${encodeURIComponent(resolvedIsSub)}`);
   } catch (err) {
     console.error("Success Route Error:", err.message);
     return res.redirect("/");

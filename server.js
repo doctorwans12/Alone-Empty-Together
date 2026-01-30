@@ -278,7 +278,7 @@ app.get("/success", async (req, res) => {
             })
             .write();
 
-          console.log(`your plan:{customerEmail}`);
+          console.log(`your plan: ${customerEmail}`);
         } else {
           db.get("subscribers")
             .find({ email: customerEmail })
@@ -301,3 +301,4 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
+

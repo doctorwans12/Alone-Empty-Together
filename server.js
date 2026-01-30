@@ -1,5 +1,7 @@
 // server.js
-require("dotenv").config();
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
 
 const express = require("express");
 const path = require("path");
@@ -43,6 +45,7 @@ db.defaults({ subscribers: [] }).write();
 
 // ---- APP ----
 const app = express();
+app.set("trust proxy", 1); // ✅ important pentru Railway (https + proxy)
 
 // Static files (index.html, logo.png, favicon.png etc.)
 app.use(express.static(__dirname));
@@ -63,9 +66,10 @@ const transporter = nodemailer.createTransport({
 const allowedPlans = new Set(["striker", "grappler", "hybrid", "traditional"]);
 
 function getBaseUrl(req) {
-  // Dacă ai BASE_URL în env (pentru deploy), îl folosim.
-  // Altfel, îl construim din request.
-  return process.env.BASE_URL || `${req.protocol}://${req.get("host")}`;
+  // ✅ Preferăm BASE_URL dacă e setat în Railway, altfel construim corect din headers.
+  if (process.env.BASE_URL) return process.env.BASE_URL.replace(/\/$/, "");
+  const proto = (req.headers["x-forwarded-proto"] || "https").split(",")[0];
+  return `${proto}://${req.get("host")}`;
 }
 
 function safeEmailFromSession(session) {
@@ -210,8 +214,8 @@ app.get("/pay-session", async (req, res) => {
 
     return res.redirect(303, session.url);
   } catch (err) {
-    console.error("Stripe Error:", err.message);
-    return res.status(500).send("Stripe error.");
+    console.error("Stripe FULL ERROR:", err); // ✅ vezi eroarea reală în Railway Logs
+    return res.status(500).send(err.message); // ✅ nu mai ascunde mesajul
   }
 });
 

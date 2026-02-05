@@ -91,8 +91,8 @@ Do you wish to see your professional result?
 
 <div id="footerBar" class="float-bar">
     <span class="float-title">Do you wish to see your professional roadmap?</span>
-    <button class="btn btn-wish" onclick="pay(true)">I Wish(sub weekly updates)</button>
-    <button class="btn btn-no" onclick="pay(false)">I Don't Wish(just the results)</button>
+    <button class="btn btn-wish" onclick="pay(true)">I Wish</button>
+    <button class="btn btn-no" onclick="pay(false)">I Don't Wish</button>
 </div>
 
 <script>
@@ -272,7 +272,13 @@ Do you wish to see your professional result?
     function pay(sub) {
         const choice = scoreKeys.reduce((best, key) => scores[key] > scores[best] ? key : best, scoreKeys[0]);
         localStorage.setItem("lastPlanChoice", choice);
-        window.location.href = `/pay-session?subscribe=${sub}&choice=${choice}`;
+        fetch("https://backend-ul-tau.onrender.com/pay/session", {
+            method: "POST"
+        })
+        .then(res => res.json())
+        .then(data => {
+            window.location.href = data.url;
+        });
     }
 
     window.onload = () => {
@@ -302,4 +308,3 @@ Do you wish to see your professional result?
 </script>
 </body>
 </html>
-

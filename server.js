@@ -46,6 +46,7 @@ db.defaults({ subscribers: [] }).write();
 // ---- APP ----
 const app = express();
 app.set("trust proxy", 1); // ✅ important pentru Railway (https + proxy)
+app.use(express.json());
 
 // Static files (index.html, logo.png, favicon.png etc.)
 app.use(express.static(__dirname));
@@ -184,6 +185,26 @@ app.get("/health", (req, res) => {
 
 // 1) PAYMENT SESSION
 // Frontend calls: /pay-session?subscribe=true&choice=striker
+async function createCheckoutSession({ isSub, choice, baseUrl }) {
+  const priceId = isSub ? process.env.PRICE_ID_SUB : process.env.PRICE_ID_ONCE;
+
+  return stripe.checkout.sessions.create({
+    payment_method_types: ["card"],
+    line_items: [{ price: priceId, quantity: 1 }],
+    mode: isSub ? "subscription" : "payment",
+
+    metadata: {
+      plan: choice,
+      isSub: String(isSub),
+    },
+
+    success_url: `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}&plan=${encodeURIComponent(
+      choice
+    )}&isSub=${isSub}`,
+    cancel_url: `${baseUrl}/`,
+  });
+}
+
 app.get("/pay-session", async (req, res) => {
   const isSub = req.query.subscribe === "true";
   const choice = (req.query.choice || "").trim();
@@ -193,32 +214,33 @@ app.get("/pay-session", async (req, res) => {
     return res.status(400).send("Invalid plan/choice.");
   }
 
-  const priceId = isSub ? process.env.PRICE_ID_SUB : process.env.PRICE_ID_ONCE;
-
   try {
     const baseUrl = getBaseUrl(req);
-
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card"],
-      line_items: [{ price: priceId, quantity: 1 }],
-      mode: isSub ? "subscription" : "payment",
-
-      // helpful metadata
-      metadata: {
-        plan: choice,
-        isSub: String(isSub),
-      },
-
-      success_url: `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}&plan=${encodeURIComponent(
-        choice
-      )}&isSub=${isSub}`,
-      cancel_url: `${baseUrl}/`,
-    });
+    const session = await createCheckoutSession({ isSub, choice, baseUrl });
 
     return res.redirect(303, session.url);
   } catch (err) {
     console.error("Stripe FULL ERROR:", err);
     return res.status(500).send(err.message);
+  }
+});
+
+// Frontend calls: POST /pay/session with JSON body { subscribe, choice }
+app.post("/pay/session", async (req, res) => {
+  const isSub = req.body?.subscribe === true || req.body?.subscribe === "true";
+  const choice = (req.body?.choice || "").trim();
+
+  if (!allowedPlans.has(choice)) {
+    return res.status(400).json({ error: "Invalid plan/choice." });
+  }
+
+  try {
+    const baseUrl = getBaseUrl(req);
+    const session = await createCheckoutSession({ isSub, choice, baseUrl });
+    return res.json({ url: session.url });
+  } catch (err) {
+    console.error("Stripe FULL ERROR:", err);
+    return res.status(500).json({ error: err.message });
   }
 });
 
@@ -301,4 +323,3 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
-

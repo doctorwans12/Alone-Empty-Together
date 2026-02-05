@@ -64,8 +64,6 @@ A true fighter listens to their body, learns from defeat, and evolves constantly
 Training the right style builds confidence, mental toughness, and unshakable self-control.
 
 
-Do you wish?
-
 Why you should continue with us: Most people never reach their potential because they train without direction or identity.
 By following our guidance, you’ll discover the fighting style that amplifies your strengths and hides your weaknesses.
 This isn’t just about learning how to fight—it’s about becoming dangerous in a controlled, intelligent way.
@@ -93,13 +91,14 @@ Your fighting style is your signature—define it, sharpen it, and own it.
 
 <div id="footerBar" class="float-bar">
     <span class="float-title">Do you wish to see your professional roadmap?</span>
-    <button class="btn btn-wish" onclick="pay(true)">I Wish</button>
-    <button class="btn btn-no" onclick="pay(false)">I Don't Wish</button>
+    <button class="btn btn-wish" onclick="pay(true)">I Wish(subscribtion)</button>
+    <button class="btn btn-no" onclick="pay(false)">I Don't Wish(only results)</button>
 </div>
 
 <script>
     const questions = [
-q: "What is your main goal?",
+        {
+           q: "What is your main goal?",
 a: ["Muscle Mass (Bulk)", "Weight Loss (Cut)", "Maintenance/Toning"],
 
 { q: "How many days per week can you go to the gym?",
@@ -157,36 +156,46 @@ a: ["Muscle Mass (Bulk)", "Weight Loss (Cut)", "Maintenance/Toning"],
   a: ["Never", "I’ve tried a few", "Yes, consistently"] },
 
 { q: "How much water do you drink daily?",
-  a: ["Under 1L", "2–3L", "Over 3L"] }
-
+  a: ["Under 1L", "2–3L", "Over 3L" }
+            ]
+        }
+    ];
 
     const resultsData = {
-  striker: {
-  name: "STRIKER – POWER & PRECISION",
-  desc: "You thrive in stand-up combat. Focus on sharp technique, timing, and explosive power. Keep your guard tight, manage distance, and strike with intent. Pad work, bag drills, and sparring will sharpen your killer instinct. Precision beats wild aggression."
-},
-grappler: {
-  name: "GRAPPLER – CONTROL & DOMINANCE",
-  desc: "You win fights through leverage, patience, and control. Position over power is your rule. Master transitions, balance, and pressure. Drilling submissions and escapes builds confidence. A calm mind turns chaos into opportunity."
-},
-hybrid: {
-  name: "HYBRID – COMPLETE FIGHTER",
-  desc: "You adapt to any situation. Mixing striking and grappling makes you unpredictable and dangerous. Train transitions relentlessly and manage energy wisely. Fight IQ is your weapon—knowing when to strike, clinch, or finish defines your dominance."
-},
-traditional: {
-  name: "TRADITIONAL – DISCIPLINE & TECHNIQUE",
-  desc: "You value structure, respect, and mastery. Technique, balance, and mental focus are your foundation. Repetition refines you. Through discipline and control, you build not just fighting skill, but inner strength and long-term resilience."
-}
+        striker: {
+            name: "STRIKER – POWER & PRECISION",
+            desc: "You thrive in stand-up combat. Focus on sharp technique, timing, and explosive power. Keep your guard tight, manage distance, and strike with intent. Pad work, bag drills, and sparring will sharpen your killer instinct. Precision beats wild aggression."
+        },
+        grappler: {
+            name: "GRAPPLER – CONTROL & DOMINANCE",
+            desc: "You win fights through leverage, patience, and control. Position over power is your rule. Master transitions, balance, and pressure. Drilling submissions and escapes builds confidence. A calm mind turns chaos into opportunity."
+        },
+        hybrid: {
+            name: "HYBRID – COMPLETE FIGHTER",
+            desc: "You adapt to any situation. Mixing striking and grappling makes you unpredictable and dangerous. Train transitions relentlessly and manage energy wisely. Fight IQ is your weapon—knowing when to strike, clinch, or finish defines your dominance."
+        },
+        traditional: {
+            name: "TRADITIONAL – DISCIPLINE & TECHNIQUE",
+            desc: "You value structure, respect, and mastery. Technique, balance, and mental focus are your foundation. Repetition refines you. Through discipline and control, you build not just fighting skill, but inner strength and long-term resilience."
+        }
+    };
+
+    const scoreKeys = ["striker", "grappler", "hybrid", "traditional"];
+
+    const buildScores = () => scoreKeys.reduce((acc, key) => {
+        acc[key] = 0;
+        return acc;
+    }, {});
 
     let current = 0;
-    let scores = { power: 0, speed: 0, stamina: 0 };
+    let scores = buildScores();
 
     function navigate(id) {
         document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
         document.getElementById(id).classList.add('active');
         if(id === 'quiz') {
             current = 0;
-            scores = { power: 0, speed: 0, stamina: 0 };
+            scores = buildScores();
             loadQ();
         }
         if(id === 'manifesto') {
@@ -208,7 +217,9 @@ traditional: {
             b.className = 'btn btn-opt';
             b.innerText = opt.t;
             b.onclick = () => { 
-                scores[opt.c]++; 
+                if (Object.prototype.hasOwnProperty.call(scores, opt.c)) {
+                    scores[opt.c]++; 
+                }
                 current++; 
                 loadQ(); 
             };
@@ -217,7 +228,8 @@ traditional: {
     }
 
     function pay(sub) {
-        const choice = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+        const choice = scoreKeys.reduce((best, key) => scores[key] > scores[best] ? key : best, scoreKeys[0]);
+        localStorage.setItem("lastPlanChoice", choice);
         window.location.href = `/pay-session?subscribe=${sub}&choice=${choice}`;
     }
 
@@ -226,13 +238,17 @@ traditional: {
         if (params.has('session_id')) {
             const plan = params.get('plan');
             const isSub = params.get('isSub');
+            const savedPlan = localStorage.getItem("lastPlanChoice");
+            const resolvedPlan = resultsData[plan]
+                ? plan
+                : (resultsData[savedPlan] ? savedPlan : null);
 
             navigate('success-view');
             document.getElementById('footerBar').style.display = 'none';
 
-            if (resultsData[plan]) {
-                document.getElementById('final-type').innerText = resultsData[plan].name;
-                document.getElementById('final-desc').innerText = resultsData[plan].desc;
+            if (resolvedPlan) {
+                document.getElementById('final-type').innerText = resultsData[resolvedPlan].name;
+                document.getElementById('final-desc').innerText = resultsData[resolvedPlan].desc;
             }
 
             if (isSub === 'true') {
@@ -244,5 +260,3 @@ traditional: {
 </script>
 </body>
 </html>
-
-

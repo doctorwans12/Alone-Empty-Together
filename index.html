@@ -65,7 +65,6 @@ Training the right style builds confidence, mental toughness, and unshakable sel
 
 
 
-
 Why you should continue with us: Most people never reach their potential because they train without direction or identity.
 By following our guidance, you’ll discover the fighting style that amplifies your strengths and hides your weaknesses.
 This isn’t just about learning how to fight—it’s about becoming dangerous in a controlled, intelligent way.
@@ -92,7 +91,7 @@ Do you wish to see your professional result?
 <div id="footerBar" class="float-bar">
     <span class="float-title">Do you wish to see your professional roadmap?</span>
     <button class="btn btn-wish" onclick="pay(true)">I Wish(subscribe)</button>
-    <button class="btn btn-no" onclick="pay(false)">I Don't Wish(just restults)</button>
+    <button class="btn btn-no" onclick="pay(false)">I Don't Wish(only results)</button>
 </div>
 
 <script>
@@ -272,7 +271,7 @@ Do you wish to see your professional result?
     function pay(sub) {
         const choice = scoreKeys.reduce((best, key) => scores[key] > scores[best] ? key : best, scoreKeys[0]);
         localStorage.setItem("lastPlanChoice", choice);
-        const checkoutUrl = `https://backend-ul-tau.onrender.com/pay-session?subscribe=${sub}&choice=${encodeURIComponent(choice)}`;
+        const checkoutUrl = `/pay-session?subscribe=${sub}&choice=${encodeURIComponent(choice)}`;
         window.location.href = checkoutUrl;
     }
 
@@ -303,4 +302,3 @@ Do you wish to see your professional result?
 </script>
 </body>
 </html>
-

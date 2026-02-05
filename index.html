@@ -1,796 +1,247 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>1 Dollar For Your Meme</title>
-  <style>
-    :root {
-      color-scheme: dark;
-      --bg: #0b0f1a;
-      --panel: #121a2b;
-      --panel-soft: #0f1728;
-      --accent: #22f3b1;
-      --accent-2: #6aa9ff;
-      --warning: #ffb347;
-      --text: #e6eefc;
-      --muted: #98a6c2;
-      --border: #1f2a44;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What type of training suits me?</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <style>
+        body { font-family: 'Arial', sans-serif; background: #f8f9fa; margin: 0; color: #333; padding-bottom: 150px; }
+        .container { max-width: 800px; margin: 40px auto; background: white; padding: 40px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
+        .logo { max-width: 280px; display: block; margin: 0 auto 20px; }
+        .section { display: none; }
+        .active { display: block; }
+        .btn { padding: 15px 30px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold; transition: 0.3s; }
+        .btn-start { background: #000; color: white; width: 100%; margin-top: 20px; }
+        .btn-opt { background: #f1f3f5; width: 100%; text-align: left; margin: 8px 0; border: 1px solid #ddd; padding: 15px; }
+        .btn-opt:hover { background: #e2e6ea; }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
-    }
+        .manifesto-text { text-align: justify; line-height: 1.8; font-size: 16px; white-space: pre-line; }
+        .roadmap-highlight { background: #fff9db; padding: 20px; border-left: 5px solid #fcc419; margin: 25px 0; font-style: italic; }
 
-    body {
-      background: radial-gradient(circle at top, #14213d 0%, #0b0f1a 45%, #070a12 100%);
-      color: var(--text);
-      min-height: 100vh;
-    }
-
-    header {
-      padding: 28px 48px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid var(--border);
-      background: rgba(7, 10, 18, 0.75);
-      position: sticky;
-      top: 0;
-      z-index: 5;
-      backdrop-filter: blur(16px);
-    }
-
-    .brand {
-      display: flex;
-      gap: 16px;
-      align-items: center;
-    }
-
-    .brand-visuals {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      position: relative;
-    }
-
-    .brand-logo {
-      width: 65px;
-      height: 65px;
-      border-radius: 18px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 12px 24px rgba(34, 243, 177, 0.15);
-      object-fit: cover;
-      background: #0c1426;
-    }
-
-    .brand-icon {
-      width: 28px;
-      height: 28px;
-      border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      object-fit: cover;
-      background: #0c1426;
-    }
-
-    .admin-button {
-      position: absolute;
-      top: -8px;
-      left: -8px;
-      padding: 6px 10px;
-      border-radius: 10px;
-      border: 1px solid 
-      background: inv
-      color: var(--text);
-      font-size: 11px;
-      font-weight: 600;
-      cursor: pointer;
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-    }
-
-    .admin-panel {
-      position: fixed;
-      inset: 0;
-      background: rgba(7, 10, 18, 0.7);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 10;
-      padding: 20px;
-    }
-
-    .admin-panel.active {
-      display: flex;
-    }
-
-    .admin-card {
-      width: min(640px, 100%);
-      background: var(--panel);
-      border-radius: 22px;
-      border: 1px solid var(--border);
-      padding: 24px;
-      display: grid;
-      gap: 16px;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
-    }
-
-    .admin-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-
-    .admin-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 14px;
-    }
-
-    .admin-grid label {
-      display: grid;
-      gap: 6px;
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    .admin-actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .admin-log {
-      display: grid;
-      gap: 10px;
-      background: #0c1426;
-      border-radius: 14px;
-      border: 1px solid var(--border);
-      padding: 12px;
-      max-height: 180px;
-      overflow: auto;
-    }
-
-    .admin-log-item {
-      display: grid;
-      gap: 4px;
-      padding: 10px 12px;
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      font-size: 13px;
-    }
-
-    .admin-log-item span {
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .brand h1 {
-      font-size: 22px;
-      letter-spacing: 0.8px;
-    }
-
-    .header-actions {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-    }
-
-    .chip {
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: var(--panel-soft);
-      border: 1px solid var(--border);
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .btn {
-      padding: 12px 18px;
-      border-radius: 12px;
-      border: none;
-      font-weight: 600;
-      color: #071016;
-      cursor: pointer;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .btn.secondary {
-      background: transparent;
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
-
-    .btn.small {
-      padding: 8px 12px;
-      font-size: 12px;
-      border-radius: 10px;
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 12px 24px rgba(34, 243, 177, 0.2);
-    }
-
-    .layout {
-      padding: 36px 48px 60px;
-      display: grid;
-      gap: 32px;
-    }
-
-    .hero {
-      display: grid;
-      gap: 20px;
-      grid-template-columns: minmax(280px, 1fr) minmax(280px, 420px);
-      align-items: center;
-    }
-
-    .hero-card {
-      background: var(--panel);
-      border-radius: 22px;
-      padding: 30px;
-      border: 1px solid var(--border);
-      display: grid;
-      gap: 16px;
-    }
-
-    .hero h2 {
-      font-size: 36px;
-      line-height: 1.1;
-    }
-
-    .hero p {
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.6;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .pay-note {
-      padding: 12px 16px;
-      border-radius: 16px;
-      border: 1px solid rgba(255, 179, 71, 0.4);
-      background: rgba(255, 179, 71, 0.08);
-      color: var(--warning);
-      font-size: 14px;
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 16px;
-    }
-
-    .stat-card {
-      padding: 20px;
-      border-radius: 18px;
-      border: 1px solid var(--border);
-      background: var(--panel-soft);
-      display: grid;
-      gap: 6px;
-    }
-
-    .stat-card h3 {
-      font-size: 24px;
-    }
-
-    .stat-card span {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .dashboard {
-      display: grid;
-      grid-template-columns: minmax(280px, 1fr) minmax(280px, 1fr);
-      gap: 24px;
-    }
-
-    .panel {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      padding: 24px;
-      display: grid;
-      gap: 16px;
-      min-height: 520px;
-    }
-
-    .panel-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-
-    .panel-header h3 {
-      font-size: 20px;
-    }
-
-    .panel-header p {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .input-row {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    input[type="text"] {
-      flex: 1;
-      min-width: 180px;
-      padding: 12px 14px;
-      border-radius: 12px;
-      background: #0c1426;
-      border: 1px solid var(--border);
-      color: var(--text);
-    }
-
-    .list {
-      display: grid;
-      gap: 12px;
-      overflow: auto;
-      padding-right: 6px;
-    }
-
-    .list-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 14px;
-      border-radius: 14px;
-      background: #0c1426;
-      border: 1px solid var(--border);
-    }
-
-    .logo {
-      width: 38px;
-      height: 38px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #fdfbfb, #ebedee, #9bf6ff);
-      display: grid;
-      place-items: center;
-      font-weight: 700;
-      color: #071016;
-      font-size: 13px;
-      text-transform: uppercase;
-    }
-
-    .item-info {
-      display: grid;
-      gap: 4px;
-    }
-
-    .item-info span {
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .load-more {
-      margin-top: auto;
-      display: flex;
-      justify-content: center;
-    }
-
-    footer {
-      text-align: center;
-      padding: 24px 12px 48px;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    @media (max-width: 900px) {
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
-      }
-
-      .layout {
-        padding: 28px 22px 50px;
-      }
-
-      .hero {
-        grid-template-columns: 1fr;
-      }
-
-      .dashboard {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+        .float-bar {
+            position: fixed; bottom: 0; left: 0; width: 100%; 
+            background: white; box-shadow: 0 -5px 25px rgba(0,0,0,0.15);
+            padding: 20px 0; z-index: 9999; text-align: center;
+            display: none; 
+        }
+        .btn-wish { background: #28a745; color: white; margin: 0 10px; min-width: 150px; }
+        .btn-no { background: #dc3545; color: white; margin: 0 10px; min-width: 150px; }
+        .float-title { display: block; margin-bottom: 10px; font-weight: bold; font-size: 18px; color: #000; }
+        
+        .result-display-box { background: #e7f5ff; border: 2px solid #228be6; padding: 30px; border-radius: 10px; margin-top: 20px; }
+    </style>
 </head>
 <body>
-  <header>
-    <div class="brand">
-      <div class="brand-visuals">
-        <button class="admin-button" id="open-admin" type="button">Admin</button>
-        <img
-          class="brand-logo"
-          src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='65' height='65' viewBox='0 0 65 65'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0%' stop-color='%2322f3b1'/><stop offset='100%' stop-color='%236aa9ff'/></linearGradient></defs><rect width='65' height='65' rx='18' fill='url(%23g)'/><text x='50%' y='54%' text-anchor='middle' font-family='Inter,Arial' font-size='26' font-weight='700' fill='%23071016'>$1</text></svg>"
-          alt="1 Dollar For Your Meme logo"
-        />
-        <img
-          class="brand-icon"
-          src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'><rect width='28' height='28' rx='8' fill='%230c1426'/><circle cx='14' cy='14' r='8' fill='%2322f3b1'/></svg>"
-          alt="Meme coin icon"
-        />
-      </div>
-      <div>
-        <h1>1 Dollar For Your Meme</h1>
-        <p class="chip" id="wallet-status">Phantom not connected</p>
-      </div>
+
+<div class="container">
+    <div id="intro" class="section active">
+        <img src="logo.png" alt="Logo" class="logo">
+        <p>This test is designed by professionals in the field of sports and will guide you toward a type of sport that suits you, based on the answers you provide. Take your time and answer honestly.</p>
+        <button class="btn btn-start" onclick="navigate('quiz')">Continue</button>
     </div>
-    <div class="header-actions">
-      <button class="btn secondary" id="pay-to-go">Pay to go up</button>
-      <button class="btn" id="connect-wallet">Connect Phantom</button>
+
+    <div id="quiz" class="section">
+        <h2 id="q-title" style="text-align:center;"></h2>
+        <div id="q-options"></div>
     </div>
-  </header>
 
-  <main class="layout">
-    <section class="hero">
-      <div class="hero-card">
-        <h2>Boost your meme coin for just $5.</h2>
-        <p>
-          Hello! This platform gives you the chance to boost your meme coin for only five dollars.
-          People who are interested in your project will put <strong>$1</strong> into it, helping it grow
-          significantly. After you add funds, your project will be listed on the site.
-        </p>
-        <div class="hero-actions">
-          <button class="btn" id="cta-boost">Add $5 &amp; Boost</button>
-          <button class="btn secondary" id="cta-member">Become a member</button>
-        </div>
-      </div>
-      <div class="hero-card">
-        <h3>Pay to go up</h3>
-        <p>
-          Pay to go up moves your meme coin to the top of the dashboard. The platform will charge
-          <strong>$5</strong> before the listing goes live.
-        </p>
-        <div class="pay-note">
-          After you add money, your product will be listed and highlighted above the crowd.
-        </div>
-        <div class="stats-grid">
-          <div class="stat-card">
-            <h3 id="member-count">21,000</h3>
-            <span>Interested members</span>
-          </div>
-          <div class="stat-card">
-            <h3 id="coin-count">1,000</h3>
-            <span>Listed meme coins</span>
-          </div>
-          <div class="stat-card">
-            <h3>$1</h3>
-            <span>Average community boost</span>
-          </div>
-          <div class="stat-card">
-            <h3>$5</h3>
-            <span>Pay to go up fee</span>
-          </div>
-        </div>
-      </div>
-    </section>
+    <div id="manifesto" class="section">
+        <div class="manifesto-text">
+  To discover the fighting style that truly fits you, you must first understand your mindset, body type, and instinctive reactions under pressure.
+Some fighters thrive on explosive power and direct impact, while others dominate through patience, timing, and precision.
+Your ideal combat style reflects how you move, think, and adapt when challenged.
 
-    <section class="dashboard">
-      <div class="panel" id="members-panel">
-        <div class="panel-header">
-          <div>
-            <h3>Members interested in your project</h3>
-            <p>21,000 people ready to drop a $1 boost.</p>
-          </div>
-          <button class="btn small secondary" id="become-member">Become a member</button>
-        </div>
-        <div class="input-row" id="member-form" style="display: none;">
-          <input type="text" id="member-name" placeholder="Your name" />
-          <button class="btn small" id="add-member">Join list</button>
-        </div>
-        <div class="list" id="member-list"></div>
-        <div class="load-more">
-          <button class="btn secondary" id="load-more-members">Load more members</button>
-        </div>
-      </div>
+Striking styles like boxing, kickboxing, or Muay Thai favor those with sharp reflexes, aggression, and a taste for controlled chaos.
+If you prefer strategy, leverage, and mental warfare, grappling arts such as Brazilian Jiu-Jitsu or wrestling may suit you perfectly.
+Speed, endurance, and discipline often lead fighters toward styles like taekwondo or karate, where technique is king.
 
-      <div class="panel" id="coins-panel">
-        <div class="panel-header">
-          <div>
-            <h3>Listed meme coins</h3>
-            <p>1,000 meme coins listed with pump.fun style defaults.</p>
-          </div>
-          <button class="btn small" id="add-coin">Add meme coin ($5)</button>
-        </div>
-        <div class="input-row" id="coin-form" style="display: none;">
-          <input type="text" id="coin-name" placeholder="Meme coin name" />
-          <button class="btn small" id="submit-coin">Pay $5 &amp; list</button>
-        </div>
-        <div class="list" id="coin-list"></div>
-        <div class="load-more">
-          <button class="btn secondary" id="load-more-coins">Load more coins</button>
-        </div>
-      </div>
-    </section>
-  </main>
+Hybrid fighters who hate limits usually gravitate toward MMA, blending multiple disciplines into a complete fighting system.
+Traditional martial arts appeal to those seeking balance, respect, and inner strength alongside physical skill.
+No style is superior—only the one that matches your natural instincts and long-term goals.
 
-  <div class="admin-panel" id="admin-panel" aria-hidden="true">
-    <div class="admin-card" role="dialog" aria-modal="true" aria-labelledby="admin-title">
-      <div class="admin-header">
-        <div>
-          <h3 id="admin-title">Admin panel</h3>
-          <p class="chip">Add data to members and meme coins.</p>
+A true fighter listens to their body, learns from defeat, and evolves constantly.
+Training the right style builds confidence, mental toughness, and unshakable self-control.
+
+
+Do you wish?
+
+Why you should continue with us: Most people never reach their potential because they train without direction or identity.
+By following our guidance, you’ll discover the fighting style that amplifies your strengths and hides your weaknesses.
+This isn’t just about learning how to fight—it’s about becoming dangerous in a controlled, intelligent way.
+Our experts break down combat psychology and martial arts science to guide you step by step.
+Your fighting style is your signature—define it, sharpen it, and own it.
+           
+            
+            Do you wish to see your professional result?
         </div>
-        <button class="btn small secondary" id="close-admin" type="button">Close</button>
-      </div>
-      <div class="admin-grid">
-        <label>
-          Member name
-          <input type="text" id="admin-member-name" placeholder="Ex: Ovidiu Boost" />
-        </label>
-        <label>
-          Coin name
-          <input type="text" id="admin-coin-name" placeholder="Ex: Turbo Frog" />
-        </label>
-      </div>
-      <div class="admin-actions">
-        <button class="btn small" id="admin-add-member" type="button">Add member</button>
-        <button class="btn small" id="admin-add-coin" type="button">Add meme coin</button>
-      </div>
-      <div>
-        <p class="chip">Recent Phantom submissions</p>
-      </div>
-      <div class="admin-log" id="admin-log">
-        <div class="admin-log-item">
-          Waiting for Phantom entries...
-          <span>New submissions will appear here.</span>
-        </div>
-      </div>
     </div>
-  </div>
 
-  <footer>
-    1 Dollar For Your Meme &mdash; boost the community, grow together.
-  </footer>
+    <div id="success-view" class="section">
+        <h1 style="color: #28a745;">Payment Successful! ✔️</h1>
+        <div class="result-display-box">
+            <h2 id="final-type" style="margin-top:0;"></h2>
+            <p id="final-desc" style="font-size: 18px;"></p>
+            <hr>
+            <p id="email-notif" style="font-weight: bold; color: #28a745;"></p>
+            <p>Your Congrats!</p>
+            <p style="color: #d9480f;"><strong>good luck with training!</strong></p>
+        </div>
+        <button class="btn btn-start" onclick="window.location.href='/'">Take the test again</button>
+    </div>
+</div>
 
-  <script>
-    let memberTotal = 21000;
-    let coinTotal = 1000;
-    const memberBatchSize = 120;
-    const coinBatchSize = 80;
+<div id="footerBar" class="float-bar">
+    <span class="float-title">Do you wish to see your professional roadmap?</span>
+    <button class="btn btn-wish" onclick="pay(true)">I Wish</button>
+    <button class="btn btn-no" onclick="pay(false)">I Don't Wish</button>
+</div>
 
-    const prefixes = [
-      "Pump", "Hype", "Turbo", "Mega", "Neko", "Luna", "Pixel", "Banana", "Cosmo", "Neon",
-      "Ape", "Rocket", "Fluffy", "Glitch", "Bongo", "Pepe", "Wen", "Moon", "Rug", "Wizard",
-    ];
-    const suffixes = [
-      "Cat", "Dog", "Frog", "Coin", "Token", "Spark", "Wave", "Meme", "Fun", "Run",
-      "Bytes", "Cloud", "Pump", "Bucks", "Crew", "Club", "Labs", "Nova", "Shine", "Boom",
-    ];
+<script>
+    const questions = [
+q: "What is your main goal?",
+a: ["Muscle Mass (Bulk)", "Weight Loss (Cut)", "Maintenance/Toning"],
 
-    const memberFirst = [
-      "Ava", "Mira", "Dani", "Luca", "Niko", "Zara", "Theo", "Nova", "Maya", "Ivy",
-      "Kai", "Milo", "Sage", "Rhea", "Orin", "Lia", "Vera", "Ezra", "Finn", "Remy",
-    ];
-    const memberLast = [
-      "Pump", "Moon", "Spark", "Meme", "Nova", "Rocket", "Boost", "Cloud", "Glow", "Dash",
-      "Storm", "Blink", "Frost", "Pulse", "Dream", "Flux", "Nova", "Scope", "Drift", "Quirk",
-    ];
+{ q: "How many days per week can you go to the gym?",
+  a: ["1–2 days", "3–4 days", "5+ days"] },
 
-    const memberList = document.getElementById("member-list");
-    const coinList = document.getElementById("coin-list");
-    const memberCount = document.getElementById("member-count");
-    const coinCount = document.getElementById("coin-count");
+{ q: "How long do you want a training session to last?",
+  a: ["45 min", "60 min", "90+ min"] },
 
-    let loadedMembers = 0;
-    let loadedCoins = 0;
+{ q: "What is your experience level?",
+  a: ["Beginner", "Intermediate", "Advanced"] },
 
-    function randomItem(arr, index) {
-      return arr[index % arr.length];
-    }
+{ q: "Do you have access to a fully equipped gym?",
+  a: ["Yes", "Only dumbbells / home workouts", "Only basic machines"] },
 
-    function makeName(index) {
-      const first = randomItem(memberFirst, index);
-      const last = randomItem(memberLast, index + 5);
-      return `${first} ${last}`;
-    }
+{ q: "Which muscle group is your priority?",
+  a: ["Chest/Arms", "Legs/Glutes", "Full Body"] },
 
-    function makeCoinName(index) {
-      const prefix = randomItem(prefixes, index);
-      const suffix = randomItem(suffixes, index + 3);
-      return `${prefix} ${suffix}`;
-    }
+{ q: "How is your sleep usually?",
+  a: ["Under 6 hours", "7–8 hours", "Over 8 hours"] },
 
-    function makeLogo(text) {
-      const el = document.createElement("div");
-      el.className = "logo";
-      el.textContent = text.substring(0, 2);
-      return el;
-    }
+{ q: "How stressful is your workday?",
+  a: ["Physical work", "Office (Sedentary)", "Very stressful"] },
 
-    function addMemberItem(name, index) {
-      const item = document.createElement("div");
-      item.className = "list-item";
+{ q: "Do you prefer training with heavy weights?",
+  a: ["Yes, strength-focused", "No, I prefer higher reps", "Mixed"] },
 
-      const logo = makeLogo(name);
-      const info = document.createElement("div");
-      info.className = "item-info";
-      info.innerHTML = `<strong>${name}</strong><span>Interested member #${index + 1}</span>`;
+{ q: "Do you currently do cardio?",
+  a: ["Not at all", "1–2 times per week", "Daily"] },
 
-      item.append(logo, info);
-      memberList.appendChild(item);
-    }
+{ q: "Do you have joint or back issues?",
+  a: ["No", "Minor pain", "Chronic problems"] },
 
-    function addCoinItem(name, index) {
-      const item = document.createElement("div");
-      item.className = "list-item";
+{ q: "Do you currently take supplements?",
+  a: ["No", "Only Protein/Creatine", "Many supplements"] },
 
-      const logo = makeLogo(name);
-      const info = document.createElement("div");
-      info.className = "item-info";
-      info.innerHTML = `<strong>${name}</strong><span>Default pump.fun listing #${index + 1}</span>`;
+{ q: "How fast do you recover after training?",
+  a: ["Slow (strong soreness)", "Normal", "Very fast"] },
 
-      item.append(logo, info);
-      coinList.appendChild(item);
-    }
+{ q: "Do you have a training partner?",
+  a: ["Alone", "With someone", "With a coach"] },
 
-    function loadMembers() {
-      const max = Math.min(loadedMembers + memberBatchSize, memberTotal);
-      for (let i = loadedMembers; i < max; i += 1) {
-        addMemberItem(makeName(i), i);
-      }
-      loadedMembers = max;
-    }
+{ q: "How do you track your progress?",
+  a: ["By feel", "Scale", "App/Journal"] },
 
-    function loadCoins() {
-      const max = Math.min(loadedCoins + coinBatchSize, coinTotal);
-      for (let i = loadedCoins; i < max; i += 1) {
-        addCoinItem(makeCoinName(i), i);
-      }
-      loadedCoins = max;
-    }
+{ q: "Are you willing to follow a strict diet?",
+  a: ["Yes", "Only approximately", "No, I just want to exercise"] },
 
-    function updateCounts() {
-      memberCount.textContent = memberTotal.toLocaleString();
-      coinCount.textContent = coinTotal.toLocaleString();
-    }
+{ q: "What demotivates you most often?",
+  a: ["Lack of time", "Lack of fast results", "Fatigue"] },
 
-    updateCounts();
-    loadMembers();
-    loadCoins();
+{ q: "Do you prefer compound exercises (e.g. squats)?",
+  a: ["Yes", "I prefer machines", "Doesn’t matter"] },
 
-    document.getElementById("load-more-members").addEventListener("click", loadMembers);
-    document.getElementById("load-more-coins").addEventListener("click", loadCoins);
+{ q: "Have you followed a workout plan before?",
+  a: ["Never", "I’ve tried a few", "Yes, consistently"] },
 
-    const walletStatus = document.getElementById("wallet-status");
+{ q: "How much water do you drink daily?",
+  a: ["Under 1L", "2–3L", "Over 3L"] }
 
-    function openAdminPanel() {
-      const panel = document.getElementById("admin-panel");
-      panel.classList.add("active");
-      panel.setAttribute("aria-hidden", "false");
-      walletStatus.textContent = "Admin panel open";
-    }
 
-    function handleAdminAccess() {
-      const password = window.prompt("Enter admin password:");
-      if (password === "ovidiu20") {
-        openAdminPanel();
-      } else {
-        alert("Wrong password.");
-      }
-    }
+    const resultsData = {
+  striker: {
+  name: "STRIKER – POWER & PRECISION",
+  desc: "You thrive in stand-up combat. Focus on sharp technique, timing, and explosive power. Keep your guard tight, manage distance, and strike with intent. Pad work, bag drills, and sparring will sharpen your killer instinct. Precision beats wild aggression."
+},
+grappler: {
+  name: "GRAPPLER – CONTROL & DOMINANCE",
+  desc: "You win fights through leverage, patience, and control. Position over power is your rule. Master transitions, balance, and pressure. Drilling submissions and escapes builds confidence. A calm mind turns chaos into opportunity."
+},
+hybrid: {
+  name: "HYBRID – COMPLETE FIGHTER",
+  desc: "You adapt to any situation. Mixing striking and grappling makes you unpredictable and dangerous. Train transitions relentlessly and manage energy wisely. Fight IQ is your weapon—knowing when to strike, clinch, or finish defines your dominance."
+},
+traditional: {
+  name: "TRADITIONAL – DISCIPLINE & TECHNIQUE",
+  desc: "You value structure, respect, and mastery. Technique, balance, and mental focus are your foundation. Repetition refines you. Through discipline and control, you build not just fighting skill, but inner strength and long-term resilience."
+}
 
-    function logAdminEntry(source, memberName, coinName, wallet) {
-      const log = document.getElementById("admin-log");
-      if (!log) return;
+    let current = 0;
+    let scores = { power: 0, speed: 0, stamina: 0 };
 
-      if (log.dataset.hasEntries !== "true") {
-        log.innerHTML = "";
-        log.dataset.hasEntries = "true";
-      }
-
-      const item = document.createElement("div");
-      item.className = "admin-log-item";
-      const safeMember = memberName || "No member name provided";
-      const safeCoin = coinName || "No coin name provided";
-      const safeWallet = wallet || "Wallet not available";
-      item.innerHTML = `<strong>${source} submission</strong><span>Member: ${safeMember} · Coin: ${safeCoin}</span><span>Wallet: ${safeWallet}</span>`;
-      log.prepend(item);
-    }
-
-    document.getElementById("connect-wallet").addEventListener("click", async () => {
-      let walletAddress = null;
-
-      if (window.solana && window.solana.isPhantom) {
-        try {
-          const response = await window.solana.connect();
-          walletAddress = response.publicKey?.toString() || "Unknown wallet";
-        } catch (error) {
-          walletStatus.textContent = "Connection rejected";
-          return;
+    function navigate(id) {
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        if(id === 'quiz') {
+            current = 0;
+            scores = { power: 0, speed: 0, stamina: 0 };
+            loadQ();
         }
-      } else {
-        walletStatus.textContent = "Phantom not detected (demo mode)";
-        return;
-      }
-
-      openAdminPanel();
-
-      logAdminEntry("Phantom", "Connected wallet", "N/A", walletAddress);
-      walletStatus.textContent = `Connected: ${walletAddress.slice(0, 4)}...`;
-    });
-
-    function toggleForm(formId) {
-      const form = document.getElementById(formId);
-      form.style.display = form.style.display === "none" ? "flex" : "none";
+        if(id === 'manifesto') {
+            document.getElementById('footerBar').style.display = 'block';
+            window.scrollTo(0,0);
+        }
     }
 
-    document.getElementById("become-member").addEventListener("click", () => toggleForm("member-form"));
-    document.getElementById("cta-member").addEventListener("click", () => toggleForm("member-form"));
-    document.getElementById("add-member").addEventListener("click", () => {
-      const nameInput = document.getElementById("member-name");
-      const name = nameInput.value.trim();
-      if (!name) return;
+    function loadQ() {
+        if (current >= questions.length) { 
+            navigate('manifesto'); 
+            return; 
+        }
+        document.getElementById('q-title').innerText = questions[current].q;
+        const container = document.getElementById('q-options');
+        container.innerHTML = '';
+        questions[current].a.forEach(opt => {
+            const b = document.createElement('button');
+            b.className = 'btn btn-opt';
+            b.innerText = opt.t;
+            b.onclick = () => { 
+                scores[opt.c]++; 
+                current++; 
+                loadQ(); 
+            };
+            container.appendChild(b);
+        });
+    }
 
-      memberTotal += 1;
-      addMemberItem(name, memberTotal - 1);
-      memberCount.textContent = memberTotal.toLocaleString();
-      nameInput.value = "";
-    });
+    function pay(sub) {
+        const choice = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+        window.location.href = `/pay-session?subscribe=${sub}&choice=${choice}`;
+    }
 
-    document.getElementById("add-coin").addEventListener("click", () => toggleForm("coin-form"));
-    document.getElementById("cta-boost").addEventListener("click", () => toggleForm("coin-form"));
-    document.getElementById("submit-coin").addEventListener("click", () => {
-      const nameInput = document.getElementById("coin-name");
-      const name = nameInput.value.trim();
-      if (!name) return;
+    window.onload = () => {
+        const params = new URLSearchParams(window.location.search);
+        if (params.has('session_id')) {
+            const plan = params.get('plan');
+            const isSub = params.get('isSub');
 
-      coinTotal += 1;
-      addCoinItem(name, coinTotal - 1);
-      coinCount.textContent = coinTotal.toLocaleString();
-      nameInput.value = "";
-    });
+            navigate('success-view');
+            document.getElementById('footerBar').style.display = 'none';
 
-    document.getElementById("pay-to-go").addEventListener("click", () => {
-      alert("Pay to go up: You will be charged $5. After you add money, your product will be listed at the top.");
-    });
+            if (resultsData[plan]) {
+                document.getElementById('final-type').innerText = resultsData[plan].name;
+                document.getElementById('final-desc').innerText = resultsData[plan].desc;
+            }
 
-    document.getElementById("open-admin").addEventListener("click", handleAdminAccess);
-
-    document.getElementById("close-admin").addEventListener("click", () => {
-      const panel = document.getElementById("admin-panel");
-      panel.classList.remove("active");
-      panel.setAttribute("aria-hidden", "true");
-    });
-
-    document.getElementById("admin-add-member").addEventListener("click", () => {
-      const input = document.getElementById("admin-member-name");
-      const name = input.value.trim();
-      if (!name) return;
-      memberTotal += 1;
-      addMemberItem(name, memberTotal - 1);
-      memberCount.textContent = memberTotal.toLocaleString();
-      input.value = "";
-    });
-
-    document.getElementById("admin-add-coin").addEventListener("click", () => {
-      const input = document.getElementById("admin-coin-name");
-      const name = input.value.trim();
-      if (!name) return;
-      coinTotal += 1;
-      addCoinItem(name, coinTotal - 1);
-      coinCount.textContent = coinTotal.toLocaleString();
-      input.value = "";
-    });
-  </script>
+            if (isSub === 'true') {
+                const notif = document.getElementById('email-notif');
+                if (notif) notif.innerHTML = "ROADMAP SENT VIA EMAIL! CHECK YOUR INBOX.";
+            }
+        }
+    }
+</script>
 </body>
 </html>
 

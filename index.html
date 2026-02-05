@@ -273,11 +273,26 @@ Do you wish to see your professional result?
         const choice = scoreKeys.reduce((best, key) => scores[key] > scores[best] ? key : best, scoreKeys[0]);
         localStorage.setItem("lastPlanChoice", choice);
         fetch("https://backend-ul-tau.onrender.com/pay/session", {
-            method: "POST"
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                subscribe: sub,
+                choice
+            })
         })
-        .then(res => res.json())
+        .then(res => {
+            if (!res.ok) throw new Error("Failed to create payment session");
+            return res.json();
+        })
         .then(data => {
+            if (!data?.url) throw new Error("Missing checkout URL");
             window.location.href = data.url;
+        })
+        .catch(err => {
+            console.error("Payment error:", err);
+            alert("Could not start payment. Please try again.");
         });
     }
 

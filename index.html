@@ -118,7 +118,7 @@ Your fighting style is your signature—define it, sharpen it, and own it.
 
 <div id="footerBar" class="float-bar">
     <span class="float-title">Unlock your full result now</span>
-    <button class="btn btn-wish" onclick="pay(false)">Unlock full result — $1</button>
+    <button class="btn btn-wish" onclick="pay(false)">Unlock full result — $2</button>
     <button class="btn btn-no" onclick="showBasicOnly()">No thanks, show only basic result</button>
     <div class="trust-text">One-time payment • Instant access • No automatic subscription</div>
 </div>
@@ -126,72 +126,83 @@ Your fighting style is your signature—define it, sharpen it, and own it.
 <script>
     const questions = [
         {
-         q: "When a fight starts, your instinct is to…",
-a: ["Take initiative and strike first", "Close distance and pressure", "Observe and adapt"],
+            q: "What feels most natural in a fight?",
+            a: ["Moving in and throwing combos", "Clinch, trips, and control", "Mixing ranges", "Keeping tight form and distance"]
+        },
+        { q: "What is your biggest strength?",
+          a: ["Power and pressure", "Leverage and balance", "Adaptability", "Discipline and precision"] },
 
-{ q: "Your favorite range is…",
-  a: ["Long–mid range (clean punches)", "Close range (inside fighting)", "Any range"] },
+        { q: "How do you like to win?",
+          a: ["Overwhelm with volume", "Control and wear them down", "Find the right moment", "Outclass with technique"] },
 
-{ q: "When your opponent is aggressive, you…",
-  a: ["Counter with speed and angles", "Walk them down and break them", "Switch tactics"] },
+        { q: "What kind of footwork fits you best?",
+          a: ["Forward pressure", "Small steps and angles", "Switching stances", "Classic, tight boxing steps"] },
 
-{ q: "What usually wins you exchanges?",
-  a: ["Timing and precision", "Pressure and toughness", "Adaptability"] },
+        { q: "What pace do you prefer?",
+          a: ["High pace", "Methodical", "Adjusting as needed", "Measured and clean"] },
 
-{ q: "If the fight becomes chaotic, you…",
-  a: ["Create space and reset", "Stay inside and control", "Flow with it"] },
+        { q: "What do you focus on in sparring?",
+          a: ["Landing big shots", "Clinch control", "Mixing in takedowns", "Timing and counters"] },
 
-{ q: "Your defense relies mostly on…",
-  a: ["Footwork and head movement", "High guard and pressure", "A mix of both"] },
+        { q: "What’s your favorite range?",
+          a: ["Pocket fighting", "Clinch and inside", "Both inside and outside", "Mid-range with jab"] },
 
-{ q: "You feel most confident when…",
-  a: ["You’re landing clean shots", "You’re forcing mistakes", "You’re dictating the pace"] },
+        { q: "How do you handle pressure?",
+          a: ["Push forward", "Tie up and reset", "Change levels and move", "Stay composed and counter"] },
 
-{ q: "When tired, you prefer to…",
-  a: ["Box smart and pick shots", "Lean in and grind", "Survive and adjust"] },
+        { q: "What kind of training excites you most?",
+          a: ["Heavy bag power rounds", "Grappling drills", "MMA-style circuits", "Pad work and timing"] },
 
-{ q: "Your ideal win looks like…",
-  a: ["Clean knockout or clear hits", "Dominating them round after round", "Winning no matter how"] },
+        { q: "What describes your mindset?",
+          a: ["Relentless", "Patient", "Versatile", "Focused"] },
 
-{ q: "What frustrates you the most?",
-  a: ["Being smothered or grabbed", "Someone constantly running", "Being limited to one approach"] },
+        { q: "How do you like to set up attacks?",
+          a: ["Feints into big hooks", "Grip fighting", "Jab into level change", "Jab and sharp counters"] },
 
-{ q: "In sparring, you usually…",
-  a: ["Focus on technique and combos", "Push the pace and test toughness", "Change styles mid-round"] },
+        { q: "Which defense is your go-to?",
+          a: ["Slip and fire back", "Clinch and smother", "Sprawl and circle", "High guard and counters"] },
 
-{ q: "Your natural rhythm is…",
-  a: ["Fast and explosive", "Relentless and heavy", "Variable"] },
+        { q: "What does a perfect round look like?",
+          a: ["High volume and damage", "Control and position wins", "Mix of striking and control", "Clean technique and dominance"] },
 
-{ q: "If a plan isn’t working, you…",
-  a: ["Refine technique", "Apply more pressure", "Completely change approach"] },
+        { q: "How do you recover between rounds?",
+          a: ["Deep breaths, keep pressure", "Slow it down, reset", "Adjust the plan", "Stay calm and technical"] },
 
-{ q: "Your mindset in a fight is…",
-  a: ["Hit and don’t get hit", "Break them mentally", "Out-think them"] },
+        { q: "What’s your ideal coach feedback?",
+          a: ["Let your hands go", "Stay heavy and tight", "Blend ranges", "Keep it crisp and sharp"] },
 
-{ q: "Which describes you best?",
-  a: ["Sharp and precise", "Rugged and relentless", "Smart and adaptable"] },
+        { q: "How do you approach endurance?",
+          a: ["Push through on grit", "Pace with control", "Mix bursts and recovery", "Efficiency over volume"] },
 
-{ q: "You feel most dangerous when…",
-  a: ["You control distance", "You control the opponent", "You control the flow"] }
- }
+        { q: "What makes you dangerous?",
+          a: ["Raw power", "Control in the clinch", "Unpredictability", "Perfect timing"] },
+
+        { q: "Which fighter style do you admire most?",
+          a: ["Brawler", "Grappling specialist", "Complete fighter", "Traditional technician"] },
+
+        { q: "When things go wrong, you…",
+          a: ["Swing back harder", "Tie up and reset", "Switch tactics", "Stay disciplined"] },
+
+        { q: "What’s your long-term goal?",
+          a: ["Be feared for power", "Be unbeatable in control", "Be complete in all areas", "Master the fundamentals"] }
     ];
 
     const resultsData = {
         striker: {
-            name: "STRIKER – POWER & PRECISION",
-            desc: "You thrive in stand-up combat. Focus on sharp technique, timing, and explosive power. Keep your guard tight, manage distance, and strike with intent. Pad work, bag drills, and sparring will sharpen your killer instinct. Precision beats wild aggression."
+            name: "BRAWLER – PRESSURE BOXER",
+            desc: "You thrive on forward pressure, heavy hands, and relentless volume. Your style is built on forcing exchanges, breaking rhythm, and winning with grit. Focus on body shots, tight hooks, and conditioning so your pace never drops."
         },
         grappler: {
-            name: "GRAPPLER – CONTROL & DOMINANCE",
-            desc: "You win fights through leverage, patience, and control. Position over power is your rule. Master transitions, balance, and pressure. Drilling submissions and escapes builds confidence. A calm mind turns chaos into opportunity."
+            name: "CLINCH FIGHTER – CONTROL SPECIALIST",
+            desc: "You dominate by smothering, tying up, and controlling the fight in close. Your strength is leverage, balance, and patience. Train clinch entries, control positions, and short strikes that wear opponents down."
         },
         hybrid: {
-            name: "HYBRID – COMPLETE FIGHTER",
-            desc: "You adapt to any situation. Mixing striking and grappling makes you unpredictable and dangerous. Train transitions relentlessly and manage energy wisely. Fight IQ is your weapon—knowing when to strike, clinch, or finish defines your dominance."
+            name: "COMPLETE FIGHTER – MIXED STYLE",
+            desc: "You’re the adaptable fighter who blends pressure with control. You can box, clinch, and switch tactics based on the moment. Keep drilling transitions, stance changes, and timing so you stay unpredictable."
         },
         traditional: {
-            name: "TRADITIONAL – DISCIPLINE & TECHNIQUE",
-            desc: "You value structure, respect, and mastery. Technique, balance, and mental focus are your foundation. Repetition refines you. Through discipline and control, you build not just fighting skill, but inner strength and long-term resilience."
+            name: "TECHNICIAN – CLASSIC BOXING STYLE",
+            desc: "You win with clean fundamentals: sharp jabs, tight defense, and smart counters. Your strength is precision and discipline. Focus on footwork, timing, and efficiency to outclass opponents over rounds."
         }
     };
 
@@ -207,28 +218,28 @@ a: ["Take initiative and strike first", "Close distance and pressure", "Observe 
 
     const previewPoints = {
         striker: [
-            "Explosive striking focus with sharp timing",
-            "Distance control and clean combinations",
-            "Footwork patterns to keep you in range",
-            "Power development through pad work"
+            "Pressure-first offense and heavy hands",
+            "Inside combinations and body work",
+            "Conditioning to keep a high pace",
+            "Short, explosive hooks and uppercuts"
         ],
         grappler: [
-            "Control-first mindset for dominant positions",
-            "Pressure, leverage, and calm transitions",
-            "Submissions and escapes that build confidence",
-            "Grappling drills to sharpen instincts"
+            "Clinch entries and control positions",
+            "Balance, leverage, and smothering pressure",
+            "Dirty boxing and short strikes",
+            "Patience to break opponents down"
         ],
         hybrid: [
-            "Balanced striking and grappling foundation",
-            "Seamless transitions between ranges",
-            "Adaptable game plan for any opponent",
-            "Fight IQ training to manage pace"
+            "Blend pressure with control",
+            "Switch ranges and tactics smoothly",
+            "Unpredictable rhythm and timing",
+            "Well-rounded skill development"
         ],
         traditional: [
-            "Technical precision and structured training",
-            "Discipline-first approach to mastery",
-            "Balance, posture, and controlled movement",
-            "Respect and mindset as core strengths"
+            "Clean jab and sharp counters",
+            "Footwork and distance control",
+            "Disciplined defense and composure",
+            "Efficiency over wasted motion"
         ]
     };
 
@@ -336,5 +347,3 @@ a: ["Take initiative and strike first", "Close distance and pressure", "Observe 
 </script>
 </body>
 </html>
-
-

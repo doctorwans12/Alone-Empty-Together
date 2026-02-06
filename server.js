@@ -43,6 +43,7 @@ db.defaults({ subscribers: [] }).write();
 
 // ---- APP ----
 const app = express();
+app.set("trust proxy", 1);
 
 // Static files (index.html, logo.png, favicon.png etc.)
 app.use(express.static(__dirname));
@@ -65,7 +66,9 @@ const allowedPlans = new Set(["striker", "grappler", "hybrid", "traditional"]);
 function getBaseUrl(req) {
   // Dacă ai BASE_URL în env (pentru deploy), îl folosim.
   // Altfel, îl construim din request.
-  return process.env.BASE_URL || `${req.protocol}://${req.get("host")}`;
+  const forwardedProto = req.get("x-forwarded-proto");
+  const protocol = forwardedProto ? forwardedProto.split(",")[0] : req.protocol;
+  return process.env.BASE_URL || `${protocol}://${req.get("host")}`;
 }
 
 function safeEmailFromSession(session) {
@@ -292,5 +295,3 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
-
-

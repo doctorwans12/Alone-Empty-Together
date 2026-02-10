@@ -75,30 +75,59 @@
 
     <div id="manifesto" class="section">
         <div class="manifesto-text">
-  To discover the fighting style that truly fits you, you must first understand your mindset, body type, and instinctive reactions under pressure.
-Some fighters thrive on explosive power and direct impact, while others dominate through patience, timing, and precision.
-Your ideal combat style reflects how you move, think, and adapt when challenged.
+ 1. BOLD – DIRECT FLIRT
 
-Striking styles like boxing, kickboxing, or Muay Thai favor those with sharp reflexes, aggression, and a taste for controlled chaos.
-If you prefer strategy, leverage, and mental warfare, grappling arts such as Brazilian Jiu-Jitsu or wrestling may suit you perfectly.
-Speed, endurance, and discipline often lead fighters toward styles like taekwondo or karate, where technique is king.
+You connect through energy, confidence, and clear intent.
+When you like someone, you don’t wait—you take initiative, create momentum, and build chemistry fast.
 
-Hybrid fighters who hate limits usually gravitate toward MMA, blending multiple disciplines into a complete fighting system.
-Traditional martial arts appeal to those seeking balance, respect, and inner strength alongside physical skill.
-No style is superior—only the one that matches your natural instincts and long-term goals.
+Strengths: charisma, courage, strong presence, playful dominance
 
-A true fighter listens to their body, learns from defeat, and evolves constantly.
-Training the right style builds confidence, mental toughness, and unshakable self-control.
+How you attract: teasing, direct compliments, bold conversation moves
 
+What sets you apart: people always know where they stand with you
 
-Why you should continue with us: Most people never reach their potential because they train without direction or identity.
-By following our guidance, you’ll discover the fighting style that amplifies your strengths and hides your weaknesses.
-This isn’t just about learning how to fight—it’s about becoming dangerous in a controlled, intelligent way.
-Our experts break down combat psychology and martial arts science to guide you step by step.
-Your fighting style is your signature—define it, sharpen it, and own it.
-           
-            
-            Do you wish to see your professional result?
+⚠️ Watch out: slow down sometimes. Listening and pacing will make your impact even stronger.
+
+2. CALM – COMFORT CREATOR
+
+You attract by making people feel safe, seen, and understood.
+Your presence is grounding, and conversations with you feel natural and effortless.
+
+Strengths: empathy, patience, emotional intelligence
+
+How you attract: deep listening, warmth, genuine interest
+
+What sets you apart: people open up to you quickly
+
+⚠️ Watch out: show romantic intent more clearly so you don’t get mistaken for “just friendly.”
+
+3. VERSATILE – VIBE ADAPTER
+
+You hate rigid rules and fixed styles.
+You read the room fast and adapt your energy to the moment.
+
+Strengths: flexibility, intuition, social intelligence
+
+How you attract: switching between humor, depth, and flirt
+
+What sets you apart: unpredictability that keeps people engaged
+
+⚠️ Watch out: consistency. Make sure your interest is clear so you don’t seem indecisive.
+
+4. ELEGANT – TIMING & PRECISION
+
+You move with intention and control.
+Every word has purpose, and your flirting is subtle, clean, and confident.
+
+Strengths: clarity, discipline, strong boundaries
+
+How you attract: timing, well-chosen words, calm confidence
+
+What sets you apart: maturity and composure
+
+⚠️ Watch out: allow more spontaneity so you don’t come off as distant or cold.
+
+            Want weekly advice? It’s just $3 a month.
         </div>
     </div>
 
@@ -110,101 +139,63 @@ Your fighting style is your signature—define it, sharpen it, and own it.
             <hr>
             <p id="email-notif" style="font-weight: bold; color: #28a745;"></p>
             <p>Your Congrats!</p>
-            <p style="color: #d9480f;"><strong>good luck with training!</strong></p>
+            <p style="color: #d9480f;"><strong>Find your love</strong></p>
         </div>
         <button class="btn btn-start" onclick="window.location.href='/'">Take the test again</button>
     </div>
 </div>
 
 <div id="footerBar" class="float-bar">
-    <span class="float-title">Unlock your full result now</span>
-    <button class="btn btn-wish" onclick="pay(false)">Unlock full result — $1</button>
+    <span class="float-title">Make your subscribtion for weekly advices!</span>
+    <button class="btn btn-wish" onclick="pay(false)">see the results + subscribtion</button>
     <button class="btn btn-no" onclick="showBasicOnly()">No thanks, show only basic result</button>
     <div class="trust-text">One-time payment • Instant access • No automatic subscription</div>
 </div>
 
 <script>
-    const questions = [
-        {
-            q: "What feels most natural in a fight?",
-            a: ["Moving in and throwing combos", "Clinch, trips, and control", "Mixing ranges", "Keeping tight form and distance"]
-        },
-        { q: "What is your biggest strength?",
-          a: ["Power and pressure", "Leverage and balance", "Adaptability", "Discipline and precision"] },
+const questions = [
+  { q: "What feels most natural when you talk to the person you like?", a: ["I jump in directly and create chemistry", "I stay calm, listen, and create comfort", "I mix styles depending on the vibe", "I stay controlled, clear, and attentive"] },
+  { q: "What is your biggest strength when you try to win someone over?", a: ["Confidence and initiative", "Empathy and patience", "Adaptability", "Clarity and self-control"] },
+  { q: "How do you like to gain interest?", a: ["With energy and constant flirting", "Through closeness and connection", "By choosing the right moment", "With style and maturity"] },
+  { q: "What kind of ‘first move’ fits you best?", a: ["Direct: I say what I want", "Slow: I build comfort", "Flexible: based on reactions", "Calculated: less, but well done"] },
+  { q: "What pace do you prefer in conversations?", a: ["Fast and playful", "Slow and deep", "Variable, depending on the vibe", "Balanced and clean"] },
+  { q: "What do you focus on when flirting?", a: ["Chemistry and energy", "Comfort and trust", "Direction and signals", "Clarity and timing"] },
+  { q: "What’s your favorite ‘zone’ when talking?", a: ["Teasing and upfront flirting", "Personal talks and closeness", "A mix of jokes and depth", "Mature dialogue, no exaggeration"] },
+  { q: "How do you handle emotions when you like someone?", a: ["I show them without shame", "I dose them and build slowly", "I use them strategically", "I control them and stay composed"] },
+  { q: "What type of interactions excite you the most?", a: ["Jokes, teasing, vibe", "Honest conversations", "Dynamic: sometimes intense, sometimes chill", "Clear, classy dialogue"] },
+  { q: "What best describes your mindset?", a: ["Bold", "Patient", "Versatile", "Disciplined"] },
+  { q: "How do you like to ‘set up’ a conversation?", a: ["Compliment + teasing", "Good questions + listening", "Change the subject when needed", "Observe first, then step in with timing"] },
+  { q: "What’s your go-to defense when panic hits?", a: ["I joke and push forward", "I slow down and create comfort", "I switch tactics", "I stay calm and controlled"] },
+  { q: "What does a perfect date/conversation look like to you?", a: ["Lots of chemistry and energy", "Connection and closeness", "A mix of fun and depth", "Clean communication and respect"] },
+  { q: "How do you recover from an awkward moment?", a: ["I turn it into a joke and move on", "I breathe, slow down, reset", "I change direction", "I stay composed and elegant"] },
+  { q: "What feedback would you like to receive?", a: ["Be more direct", "Maintain closeness", "Be more flexible", "Stay clear and confident"] },
+  { q: "How do you manage your energy long-term?", a: ["Through passion and intensity", "With a calm, steady rhythm", "By alternating bursts and recovery", "Through efficiency, no waste"] },
+  { q: "What makes you dangerous in flirting?", a: ["Charisma and boldness", "Warmth and presence", "Unpredictability", "Perfect timing"] },
+  { q: "Which style do you admire most?", a: ["Bold and spontaneous", "Empathetic and stable", "Balanced and complete", "Mature and elegant"] },
+  { q: "When things don’t go well, you…", a: ["Try harder", "Slow down and reassure", "Change strategy", "Stay disciplined"] },
+  { q: "What’s your long-term goal?", a: ["To be memorable and irresistible", "To build a real connection", "To be complete and natural", "To master communication"] }
+]
 
-        { q: "How do you like to win?",
-          a: ["Overwhelm with volume", "Control and wear them down", "Find the right moment", "Outclass with technique"] },
 
-        { q: "What kind of footwork fits you best?",
-          a: ["Forward pressure", "Small steps and angles", "Switching stances", "Classic, tight boxing steps"] },
+ const resultsData = {
+  bold: {
+    name: "BOLD – DIRECT FLIRT",
+    desc: "When you like someone, you come in with energy and initiative. You create chemistry fast, take the lead in conversations, and aren’t afraid to show intent. Your confidence and flirt-forward style make you exciting—just be careful to listen and pace yourself so you don’t come off as rushed."
+  },
+  calm: {
+    name: "CALM – COMFORT CREATOR",
+    desc: "You win people over through safety, patience, and presence. You make others feel understood, relaxed, and emotionally comfortable. Your strength is connection—just work on sending clearer signals of romantic interest so you don’t get stuck in the ‘just friendly’ zone."
+  },
+  versatile: {
+    name: "VERSATILE – VIBE ADAPTER",
+    desc: "You quickly sense what works and adjust on the fly: jokes, depth, flirting, pauses. You’re unpredictable in a good way and naturally engaging. Your challenge is consistency—staying grounded so you don’t seem indecisive or hard to read."
+  },
+  elegant: {
+    name: "ELEGANT – TIMING & PRECISION",
+    desc: "You’re calculated, thoughtful, and intentional with your words. You flirt subtly, value respect, and rely on perfect timing rather than volume. Your style is mature and classy—adding a bit more spontaneity can help you feel warmer and more approachable."
+  }
+};
 
-        { q: "What pace do you prefer?",
-          a: ["High pace", "Methodical", "Adjusting as needed", "Measured and clean"] },
-
-        { q: "What do you focus on in sparring?",
-          a: ["Landing big shots", "Clinch control", "Mixing in takedowns", "Timing and counters"] },
-
-        { q: "What’s your favorite range?",
-          a: ["Pocket fighting", "Clinch and inside", "Both inside and outside", "Mid-range with jab"] },
-
-        { q: "How do you handle pressure?",
-          a: ["Push forward", "Tie up and reset", "Change levels and move", "Stay composed and counter"] },
-
-        { q: "What kind of training excites you most?",
-          a: ["Heavy bag power rounds", "Grappling drills", "MMA-style circuits", "Pad work and timing"] },
-
-        { q: "What describes your mindset?",
-          a: ["Relentless", "Patient", "Versatile", "Focused"] },
-
-        { q: "How do you like to set up attacks?",
-          a: ["Feints into big hooks", "Grip fighting", "Jab into level change", "Jab and sharp counters"] },
-
-        { q: "Which defense is your go-to?",
-          a: ["Slip and fire back", "Clinch and smother", "Sprawl and circle", "High guard and counters"] },
-
-        { q: "What does a perfect round look like?",
-          a: ["High volume and damage", "Control and position wins", "Mix of striking and control", "Clean technique and dominance"] },
-
-        { q: "How do you recover between rounds?",
-          a: ["Deep breaths, keep pressure", "Slow it down, reset", "Adjust the plan", "Stay calm and technical"] },
-
-        { q: "What’s your ideal coach feedback?",
-          a: ["Let your hands go", "Stay heavy and tight", "Blend ranges", "Keep it crisp and sharp"] },
-
-        { q: "How do you approach endurance?",
-          a: ["Push through on grit", "Pace with control", "Mix bursts and recovery", "Efficiency over volume"] },
-
-        { q: "What makes you dangerous?",
-          a: ["Raw power", "Control in the clinch", "Unpredictability", "Perfect timing"] },
-
-        { q: "Which fighter style do you admire most?",
-          a: ["Brawler", "Grappling specialist", "Complete fighter", "Traditional technician"] },
-
-        { q: "When things go wrong, you…",
-          a: ["Swing back harder", "Tie up and reset", "Switch tactics", "Stay disciplined"] },
-
-        { q: "What’s your long-term goal?",
-          a: ["Be feared for power", "Be unbeatable in control", "Be complete in all areas", "Master the fundamentals"] }
-    ];
-
-    const resultsData = {
-        striker: {
-            name: "BRAWLER – PRESSURE BOXER",
-            desc: "You thrive on forward pressure, heavy hands, and relentless volume. Your style is built on forcing exchanges, breaking rhythm, and winning with grit. Focus on body shots, tight hooks, and conditioning so your pace never drops."
-        },
-        grappler: {
-            name: "CLINCH FIGHTER – CONTROL SPECIALIST",
-            desc: "You dominate by smothering, tying up, and controlling the fight in close. Your strength is leverage, balance, and patience. Train clinch entries, control positions, and short strikes that wear opponents down."
-        },
-        hybrid: {
-            name: "COMPLETE FIGHTER – MIXED STYLE",
-            desc: "You’re the adaptable fighter who blends pressure with control. You can box, clinch, and switch tactics based on the moment. Keep drilling transitions, stance changes, and timing so you stay unpredictable."
-        },
-        traditional: {
-            name: "TECHNICIAN – CLASSIC BOXING STYLE",
-            desc: "You win with clean fundamentals: sharp jabs, tight defense, and smart counters. Your strength is precision and discipline. Focus on footwork, timing, and efficiency to outclass opponents over rounds."
-        }
-    };
 
     const scoreKeys = ["striker", "grappler", "hybrid", "traditional"];
 
@@ -347,3 +338,4 @@ Your fighting style is your signature—define it, sharpen it, and own it.
 </script>
 </body>
 </html>
+

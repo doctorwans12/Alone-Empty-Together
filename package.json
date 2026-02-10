@@ -1,5 +1,5 @@
 {
-  "name": "\Alone Empyt Together",
+  "name": "Alone Empyt Together",
   "version": "1.0.0",
   "description": "Love is more powerfull than money",
   "main": "server.js",
@@ -19,4 +19,5 @@
     "stripe": "^16.12.0"
   }
 }
+
 

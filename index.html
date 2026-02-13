@@ -260,62 +260,32 @@ const questions = [
     let current = 0;
     let scores = buildScores();
 
-    const previewPoints = {
-        bold: [
-
-"You connect through energy, confidence, and clear intent."
-"When you like someone, you don’t wait—you take initiative, create momentum, and build chemistry fast."
-
-"Strengths: charisma, courage, strong presence, playful dominance"
-
-"How you attract: teasing, direct compliments, bold conversation moves"
-
-"What sets you apart: people always know where they stand with you"
-
-" Watch out: slow down sometimes. Listening and pacing will make your impact even stronger."
+   const loveStyles = {
+    bold: [
+        "Passion-first approach and deep emotional impact",
+        "Intimate connections and heart-to-heart depth",
+        "High energy to keep the romance alive",
+        "Spontaneous, explosive gestures of affection"
     ],
     calm: [
-        
-
-"You attract by making people feel safe, seen, and understood."
-"Your presence is grounding, and conversations with you feel natural and effortless."
-
-"Strengths: empathy, patience, emotional intelligence"
-
-"How you attract: deep listening, warmth, genuine interest"
-
-"What sets you apart: people open up to you quickly"
-
- "Watch out: show romantic intent more clearly so you don’t get mistaken for “just friendly."
+        "Soulful presence and emotional safety",
+        "Balance, patience, and grounding support",
+        "Gentle whispers and meaningful small touches",
+        "Deep calmness to heal and soothe the partner"
     ],
     versatile: [
-
-"You hate rigid rules and fixed styles."
-"You read the room fast and adapt your energy to the moment."
-
-"Strengths: flexibility, intuition, social intelligence"
-
-"How you attract: switching between humor, depth, and flirt"
-
-"What sets you apart: unpredictability that keeps people engaged"
-
-" Watch out: consistency. Make sure your interest is clear so you don’t seem indecisive."
+        "Seamlessly blends passion with stability",
+        "Adapts to any emotional season or situation",
+        "Intuitive rhythm and understanding of needs",
+        "Well-rounded commitment to personal growth"
     ],
     elegant: [
-        
-"You move with intention and control."
-"Every word has purpose, and your flirting is subtle, clean, and confident."
-
-"Strengths: clarity, discipline, strong boundaries"
-
-"How you attract: timing, well-chosen words, calm confidence"
-
-"What sets you apart: maturity and composure"
-
- "Watch out: allow more spontaneity so you don’t come off as distant or cold."
-
+        "Poetic communication and emotional intelligence",
+        "Respect for boundaries and healthy space",
+        "Graceful devotion and unwavering composure",
+        "Meaningful quality over wasted efforts"
     ]
-    };
+};
 
     function bestChoice() {
         return scoreKeys.reduce((best, key) => scores[key] > scores[best] ? key : best, scoreKeys[0]);
@@ -421,6 +391,7 @@ const questions = [
 </script>
 </body>
 </html>
+
 
 
 

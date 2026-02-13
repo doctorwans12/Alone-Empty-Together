@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,8 +30,8 @@
 <div class="container">
     <div id="intro" class="section active">
         <img src="logo.png" alt="Logo" class="logo">
-        <p style="text-align:center;">Discover your attraction blueprint. Answer 20 questions to unlock your personalized result.</p>
-        <button class="btn btn-start" onclick="startQuiz()">Continue</button>
+        <p style="text-align:center;">Descoperă-ți amprenta atracției. Răspunde la 20 de întrebări pentru a debloca rezultatul tău personalizat.</p>
+        <button class="btn btn-start" onclick="startQuiz()">Continuă</button>
     </div>
 
     <div id="quiz" class="section">
@@ -41,10 +41,10 @@
     </div>
 
     <div id="result-preview" class="section">
-        <h2 style="text-align:center;">Your Personal Analysis</h2>
+        <h2 style="text-align:center;">Analiza Ta Personală</h2>
         <div class="result-display-box">
             <div class="locked-overlay">
-                <div class="lock-badge">🔒 Result Locked</div>
+                <div class="lock-badge">🔒 Rezultat Blocat</div>
             </div>
             <div id="preview-blur-wrapper" class="blurred">
                 <div id="manifesto-preview-content"></div>
@@ -53,73 +53,73 @@
     </div>
 
     <div id="success-view" class="section">
-        <h1 style="color: #28a745; text-align:center;">Access Granted! ✔️</h1>
+        <h1 style="color: #28a745; text-align:center;">Acces Permis! ✔️</h1>
         <div class="result-display-box">
             <div id="final-result-content"></div>
         </div>
-        <button class="btn btn-start" onclick="window.location.href='/'">Take the test again</button>
+        <button class="btn btn-start" onclick="window.location.href='/'">Refă testul</button>
     </div>
 </div>
 
 <div id="footerBar" class="float-bar">
-    <span style="display:block; margin-bottom:10px; font-weight:bold; font-size: 18px;">How do you want to unlock?</span>
-    <button class="btn btn-sub" onclick="pay(true)">I want Results + Weekly Subscription ($3/mo)</button>
-    <button class="btn btn-only" onclick="pay(false)">I want Only Results (One-time payment)</button>
+    <span style="display:block; margin-bottom:10px; font-weight:bold; font-size: 18px;">Cum vrei să deblochezi?</span>
+    <button class="btn btn-sub" onclick="pay(true)">Vreau Rezultatele + Abonament Săptămânal ($3/lună)</button>
+    <button class="btn btn-only" onclick="pay(false)">Vreau Doar Rezultatele (Plată unică)</button>
 </div>
 
 <div id="data-store" style="display:none;">
     <div id="raw-bold">
-        <h3>BOLD – DIRECT ENERGY</h3>
-        <p>The Vibe: You are a natural catalyst who thrives on momentum. You don’t wait for "green lights"—you create them through sheer presence and initiative. You possess a rare, infectious confidence that signals high status and social courage.
-The Strategy: You build chemistry through high-intensity interactions, playful dominance, and a complete lack of filter. You are the "hunter" in social dynamics, comfortable with taking risks that others are too afraid to try.
-The Secret Weapon: Your immunity to rejection. Because you aren't afraid of a "no," you move with a level of freedom that makes you incredibly magnetic and persuasive to those around you.
-The Warning: Be mindful of the "oxygen" in the room. Occasionally slowing down and letting the other person chase you will make your bold moves even more impactful.</p>
+        <h3>BOLD – ENERGIE DIRECTĂ</h3>
+        <p>Vibe-ul: Ești un catalizator natural care prosperă prin elan. Nu aștepți "lumina verde"—o creezi prin simpla ta prezență și inițiativă. Posezi o încredere rară și contagioasă care semnalează un statut înalt și curaj social.
+Strategia: Construiești chimie prin interacțiuni de intensitate ridicată, dominanță jucăușă și o lipsă totală de filtru. Ești "vânătorul" în dinamica socială, confortabil în a-ți asuma riscuri pe care alții se tem să le încerce.
+Arma Secretă: Imunitatea la respingere. Deoarece nu te temi de un "nu", te miști cu un nivel de libertate care te face incredibil de magnetic și persuasiv pentru cei din jur.
+Avertisment: Fii atent la "oxigenul" din încăpere. Încetinirea ocazională și permiterea celeilalte persoane să te "vâneze" va face mișcările tale îndrăznețe și mai de impact.</p>
     </div>
     <div id="raw-calm">
-        <h3>CALM – COMFORT CREATOR</h3>
-        <p>The Vibe: You are the "safe harbor" in a chaotic world. People feel an instant sense of relief and emotional security when they are with you. You win through depth and stability rather than noise or flashiness.
-The Strategy: You master the art of active listening and presence. By making the other person feel like they are the only one in the room, you create a psychological bond that is far stronger than superficial attraction.
-The Secret Weapon: Emotional Intelligence. Your ability to read between the lines and validate others' feelings makes you unforgettable, building a foundation of trust that others cannot compete with.
-The Warning: Don't get stuck in the "Friend Zone." You must pair your comfort with clear romantic intent to ensure your warmth is perceived as attraction, not just platonic kindness.</p>
+        <h3>CALM – CREATOR DE CONFORT</h3>
+        <p>Vibe-ul: Ești "portul sigur" într-o lume haotică. Oamenii simt un sentiment instantaneu de ușurare și siguranță emoțională când sunt cu tine. Câștigi prin profunzime și stabilitate, mai degrabă decât prin zgomot sau extravaganță.
+Strategia: Stăpânești arta ascultării active și a prezenței. Făcând cealaltă persoană să simtă că este singura din cameră, creezi o legătură psihologică mult mai puternică decât atracția superficială.
+Arma Secretă: Inteligența Emoțională. Abilitatea ta de a citi printre rânduri și de a valida sentimentele celorlalți te face de neuitat, construind o fundație de încredere cu care alții nu pot concura.
+Avertisment: Nu te bloca în "Zona de Prietenie". Trebuie să asociezi confortul cu o intenție romantică clară pentru a te asigura că căldura ta este percepută ca atracție, nu doar ca bunătate platonică.</p>
     </div>
     <div id="raw-versatile">
-        <h3>VERSATILE – VIBE ADAPTER</h3>
-        <p>The Vibe: You are a social chameleon with elite-level intuition. You can read micro-expressions and shifts in energy instantly, allowing you to match the "frequency" of whoever you are talking to.
-The Strategy: You keep people on their toes through unpredictability. You can switch from sharp humor to deep, philosophical conversation in seconds, making you the most interesting person in any environment.
-The Secret Weapon: Extreme Adaptability. You have a "key" for every lock, allowing you to connect with a vast range of personality types that others would find intimidating or difficult.
-The Warning: Identity consistency. Because you are so good at adapting to others, make sure you don't lose sight of your own core values. People need to feel they are connecting with you, not just a mirror.</p>
+        <h3>VERSATIL – ADAPTOR DE VIBE</h3>
+        <p>Vibe-ul: Ești un cameleon social cu o intuiție de elită. Poți citi micro-expresiile și schimbările de energie instantaneu, permițându-ți să te potrivești pe "frecvența" oricui cu care vorbești.
+Strategia: Îi ții pe oameni în alertă prin imprevizibilitate. Poți trece de la umor ascuțit la conversații filosofice profunde în câteva secunde, fiind cea mai interesantă persoană din orice mediu.
+Arma Secretă: Adaptabilitatea Extremă. Ai o "cheie" pentru fiecare lacăt, permițându-ți să te conectezi cu o gamă vastă de tipuri de personalitate pe care alții le-ar găsi intimidante sau dificile.
+Avertisment: Consistența identității. Deoarece ești atât de bun în a te adapta la ceilalți, ai grijă să nu pierzi din vedere propriile valori fundamentale. Oamenii trebuie să simtă că se conectează cu tine, nu doar cu o oglindă.</p>
     </div>
     <div id="raw-elegant">
-        <h3>ELEGANT – TIMING & PRECISION</h3>
-        <p>The Vibe: You are the definition of "less is more." You move with intention, grace, and total self-control. You don't chase; you attract by maintaining a high-standard, sophisticated aura.
-The Strategy: You rely on subtlety and class. Your flirting is precise—a well-timed look or a carefully chosen sentence—leaving the other person wanting more and thinking about you long after you've left.
-The Secret Weapon: Scarcity. By not over-sharing or being "too available," you signal immense value. You are the "prize" that must be earned through effort and genuine interest.
-The Warning: Perceived coldness. Your high standards can sometimes be mistaken for arrogance or distance. A well-placed, warm smile is necessary to let people know that the "prize" is actually winnable.</p>
+        <h3>ELEGANT – TIMING ȘI PRECIZIE</h3>
+        <p>Vibe-ul: Ești definiția conceptului "mai puțin înseamnă mai mult". Te miști cu intenție, grație și un autocontrol total. Nu urmărești; atragi prin menținerea unei aure sofisticate, de înalt standard.
+Strategia: Te bazezi pe subtilitate și clasă. Flirtul tău este precis—o privire bine aleasă sau o frază atent selectată—lăsând cealaltă persoană dorindu-și mai mult și gândindu-se la tine mult timp după ce ai plecat.
+Arma Secretă: Raritatea. Nu te expui prea mult și nu ești "prea disponibil", semnalând o valoare imensă. Ești "premiul" care trebuie câștigat prin efort și interes real.
+Avertisment: Răceala percepută. Standardele tale înalte pot fi uneori confundate cu aroganța sau distanțarea. Un zâmbet cald, oferit la momentul potrivit, este necesar pentru a le arăta oamenilor că "premiul" este, de fapt, câștigabil.</p>
     </div>
 </div>
 
 <script>
 const questions = [
-    { q: "What feels most natural when you talk to someone you like?", a: ["I jump in directly", "I stay calm and listen", "I mix styles depending on vibe", "I stay controlled and attentive"] },
-    { q: "What is your biggest strength?", a: ["Confidence", "Empathy", "Adaptability", "Self-control"] },
-    { q: "How do you like to gain interest?", a: ["Constant flirting", "Closeness", "Right moment", "Maturity"] },
-    { q: "What kind of ‘first move’ fits you?", a: ["Direct and loud", "Slow and subtle", "Based on their reaction", "Calculated and clean"] },
-    { q: "What pace do you prefer?", a: ["Fast", "Slow", "Variable", "Balanced"] },
-    { q: "What do you focus on?", a: ["Chemistry", "Trust", "Social signals", "Timing"] },
-    { q: "What’s your favorite ‘zone’?", a: ["Teasing", "Personal talks", "Jokes & depth", "Classy dialogue"] },
-    { q: "How do you handle emotions?", a: ["Show them openly", "Build them slowly", "Use them strategically", "Stay composed"] },
-    { q: "What interactions excite you?", a: ["Vibe & teasing", "Honest talks", "Dynamic/Unpredictable", "Clear & classy"] },
-    { q: "What best describes your mindset?", a: ["Bold", "Patient", "Versatile", "Disciplined"] },
-    { q: "How do you set up a conversation?", a: ["Compliments", "Questions", "Switching topics", "Observing first"] },
-    { q: "What’s your defense when panicking?", a: ["I joke/push", "I slow down", "I change tactics", "I stay silent/calm"] },
-    { q: "What does a perfect date look like?", a: ["High energy", "Deep connection", "Mixed fun", "Respectful/Clean"] },
-    { q: "How do you recover from awkwardness?", a: ["I joke it off", "I reset slowly", "I change direction", "I stay elegant"] },
-    { q: "What feedback do you want?", a: ["'You are exciting'", "'You are special'", "'You are fun'", "'You are confident'"] },
-    { q: "Energy management?", a: ["Intensity", "Steady rhythm", "Alternating", "Efficiency"] },
-    { q: "What makes you 'dangerous'?", a: ["Charisma", "Presence", "Unpredictability", "Timing"] },
-    { q: "What style do you admire?", a: ["Spontaneous", "Stable", "Balanced", "Elegant"] },
-    { q: "When things go wrong...", a: ["Try harder", "Give space", "Change strategy", "Stay disciplined"] },
-    { q: "What is your long-term goal?", a: ["Be irresistible", "Build connection", "Be natural", "Master communication"] }
+    { q: "Ce ți se pare cel mai natural când vorbești cu cineva care îți place?", a: ["Intervin direct", "Rămân calm și ascult", "Combin stilurile în funcție de vibe", "Rămân controlat și atent"] },
+    { q: "Care este cel mai mare punct forte al tău?", a: ["Încrederea", "Empatia", "Adaptabilitatea", "Autocontrolul"] },
+    { q: "Cum îți place să câștigi interesul?", a: ["Flirt constant", "Apropiere", "Momentul potrivit", "Maturitate"] },
+    { q: "Ce fel de 'primă mișcare' ți se potrivește?", a: ["Directă și vocală", "Lentă și subtilă", "Bazată pe reacția lor", "Calculată și clară"] },
+    { q: "Ce ritm preferi?", a: ["Rapid", "Lent", "Variabil", "Echilibrat"] },
+    { q: "Pe ce te concentrezi?", a: ["Chimie", "Încredere", "Semnale sociale", "Timing"] },
+    { q: "Care este 'zona' ta preferată?", a: ["Teasing", "Discuții personale", "Glume și profunzime", "Dialog clasic"] },
+    { q: "Cum gestionezi emoțiile?", a: ["Le arăt deschis", "Le construiesc lent", "Le folosesc strategic", "Rămân compus"] },
+    { q: "Ce interacțiuni te entuziasmează?", a: ["Vibe și teasing", "Discuții sincere", "Dinamic/Imprevizibil", "Clar și clasic"] },
+    { q: "Ce descrie cel mai bine mentalitatea ta?", a: ["Îndrăzneț", "Răbdător", "Versatil", "Disciplinat"] },
+    { q: "Cum pregătești o conversație?", a: ["Complimente", "Întrebări", "Schimbarea subiectelor", "Observând mai întâi"] },
+    { q: "Care este apărarea ta când intri în panică?", a: ["Glumesc/Forțez", "Încetinesc", "Schimb tactica", "Rămân tăcut/calm"] },
+    { q: "Cum arată o întâlnire perfectă?", a: ["Energie ridicată", "Conexiune profundă", "Distracție mixtă", "Respectuoasă/Clară"] },
+    { q: "Cum îți revii dintr-un moment stânjenitor?", a: ["Îl transform într-o glumă", "Mă resetez încet", "Schimb direcția", "Rămân elegant"] },
+    { q: "Ce feedback îți dorești?", a: ["'Ești incitant'", "'Ești special'", "'Ești distractiv'", "'Ești încrezător'"] },
+    { q: "Gestionarea energiei?", a: ["Intensitate", "Ritm constant", "Alternanță", "Eficiență"] },
+    { q: "Ce te face 'periculos'?", a: ["Carisma", "Prezența", "Imprevizibilitatea", "Timing-ul"] },
+    { q: "Ce stil admiri cel mai mult?", a: ["Spontan", "Stabil", "Echilibrat", "Elegant"] },
+    { q: "Când lucrurile nu merg bine...", a: ["Încerc mai tare", "Ofer spațiu", "Schimb strategia", "Rămân disciplinat"] },
+    { q: "Care este scopul tău pe termen lung?", a: ["Să fiu irezistibil", "Să construiesc conexiuni", "Să fiu natural", "Să stăpânesc comunicarea"] }
 ];
 
 const scoreKeys = ["bold", "calm", "versatile", "elegant"];
@@ -146,7 +146,7 @@ function loadQ() {
     }
     const q = questions[current];
     document.getElementById('q-title').innerText = q.q;
-    document.getElementById('q-progress').innerText = `Question ${current + 1} of 20`;
+    document.getElementById('q-progress').innerText = `Întrebarea ${current + 1} din 20`;
     const container = document.getElementById('q-options');
     container.innerHTML = '';
     
@@ -173,7 +173,6 @@ function finishQuiz() {
 
 function pay(isSubscribe) {
     const choice = localStorage.getItem("userResult") || "bold";
-    // Redirectioneaza catre endpoint-ul tau de plata
     window.location.href = `/pay-session?subscribe=${isSubscribe}&choice=${choice}`;
 }
 
@@ -189,4 +188,5 @@ window.onload = () => {
 </script>
 </body>
 </html>
+
 

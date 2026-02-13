@@ -233,6 +233,7 @@ app.get("/success", async (req, res) => {
     const resolvedIsSub = sessionIsSub || isSub || "";
     const redirectPlan = allowedPlans.has(resolvedPlan) ? resolvedPlan : "";
     const storedPlan = allowedPlans.has(resolvedPlan) ? resolvedPlan : "unknown";
+    
 
     if (!customerEmail) {
       console.log("❌ No email found in Stripe session.");
@@ -295,4 +296,5 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
+
 

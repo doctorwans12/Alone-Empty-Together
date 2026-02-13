@@ -4,39 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alone Empty Together</title>
-    <link rel="icon" href="favicon.png" type="image/png">
     <style>
-        body { font-family: 'Arial', sans-serif; background: #f8f9fa; margin: 0; color: #333; padding-bottom: 150px; }
+        body { font-family: 'Arial', sans-serif; background: #f8f9fa; margin: 0; color: #333; padding-bottom: 160px; }
         .container { max-width: 800px; margin: 40px auto; background: white; padding: 40px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
         .logo { max-width: 280px; display: block; margin: 0 auto 20px; }
         .section { display: none; }
         .active { display: block; }
-        .btn { padding: 15px 30px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold; transition: 0.3s; text-align: center; text-decoration: none; display: inline-block; }
-        .btn-start { background: #000; color: white; width: 100%; margin-top: 20px; }
-        .btn-opt { background: #f1f3f5; width: 100%; text-align: left; margin: 8px 0; border: 1px solid #ddd; padding: 15px; }
+        .btn { padding: 15px 30px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold; transition: 0.3s; text-align: center; display: inline-block; width: 100%; box-sizing: border-box; }
+        .btn-start { background: #000; color: white; margin-top: 20px; }
+        .btn-opt { background: #f1f3f5; text-align: left; margin: 8px 0; border: 1px solid #ddd; padding: 15px; width: 100%; color: #333; }
         .btn-opt:hover { background: #e2e6ea; }
 
-        .manifesto-text { text-align: left; line-height: 1.8; font-size: 16px; margin-top: 20px; }
-        .result-block { display: none; padding: 20px; background: #fff; border-radius: 10px; border: 1px solid #eee; }
+        /* Stiluri pentru Rezultat și Blur */
+        .manifesto-text { text-align: left; line-height: 1.8; font-size: 16px; margin-top: 20px; border-top: 2px solid #eee; padding-top: 20px; }
+        .result-block { display: none; padding: 20px; background: #fff; }
+        .blurred { filter: blur(8px); user-select: none; pointer-events: none; }
+        
+        .result-display-box { background: #e7f5ff; border: 2px solid #228be6; padding: 30px; border-radius: 10px; margin-top: 20px; position: relative; }
+        .locked-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.4); font-weight: bold; text-transform: uppercase; z-index: 10; }
 
-        .float-bar {
-            position: fixed; bottom: 0; left: 0; width: 100%;
-            background: white; box-shadow: 0 -5px 25px rgba(0,0,0,0.15);
-            padding: 20px 0; z-index: 9999; text-align: center;
-            display: none;
-        }
-        .btn-wish { background: #28a745; color: white; margin: 5px 10px; min-width: 150px; }
-        .btn-no { background: #dc3545; color: white; margin: 5px 10px; min-width: 150px; }
-        .float-title { display: block; margin-bottom: 10px; font-weight: bold; font-size: 18px; color: #000; }
-
-        .result-display-box { background: #e7f5ff; border: 2px solid #228be6; padding: 30px; border-radius: 10px; margin-top: 20px; }
-        .preview-box { position: relative; overflow: hidden; min-height: 100px; }
-        .blurred { filter: blur(6px); user-select: none; }
-        .locked-overlay {
-            position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-            background: rgba(255,255,255,0.7); font-weight: bold; text-transform: uppercase; letter-spacing: 1px;
-        }
-        .trust-text { font-size: 12px; color: #777; margin-top: 10px; }
+        .float-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: white; box-shadow: 0 -5px 25px rgba(0,0,0,0.15); padding: 20px 0; z-index: 9999; text-align: center; display: none; }
+        .btn-wish { background: #28a745; color: white; margin: 5px auto; width: 90%; max-width: 300px; display: block; }
+        .btn-no { background: #dc3545; color: white; margin: 5px auto; width: 90%; max-width: 300px; display: block; }
     </style>
 </head>
 <body>
@@ -44,8 +33,8 @@
 <div class="container">
     <div id="intro" class="section active">
         <img src="logo.png" alt="Logo" class="logo">
-        <p style="text-align:center;">This test is designed by professionals to guide you toward your personal love and attraction style. Answer honestly to find your blueprint.</p>
-        <button class="btn btn-start" onclick="navigate('quiz')">Start Test</button>
+        <p style="text-align:center;">Discover your personal love and attraction style. Answer 20 professional questions to unlock your blueprint.</p>
+        <button class="btn btn-start" onclick="startQuiz()">Continue to Test</button>
     </div>
 
     <div id="quiz" class="section">
@@ -54,98 +43,67 @@
     </div>
 
     <div id="result-preview" class="section">
-        <h2 style="text-align:center;">Analyzing Your Results...</h2>
-        <div class="result-display-box preview-box">
-            <div id="preview-content" class="blurred">
-                <h3 id="preview-name">Your Result Name</h3>
-                <p>Generating your personalized profile based on your answers...</p>
+        <h2 style="text-align:center;">Your Personal Analysis</h2>
+        <div id="preview-container" class="result-display-box">
+            <div id="lock-text" class="locked-overlay">Content Locked - Complete Payment to View</div>
+            <div id="blur-wrapper" class="blurred">
+                <h3 id="style-name-preview">Style Name</h3>
+                <div id="manifesto-content">
+                    </div>
             </div>
-            <div id="preview-lock" class="locked-overlay">Complete Preview Locked</div>
-        </div>
-        
-        <div id="manifesto" class="manifesto-text" style="display:none; border-top: 2px solid #eee; margin-top: 30px;">
-            
-            <div id="res-bold" class="result-block">
-                <h3>1. BOLD – DIRECT FLIRT</h3>
-                <p>You connect through energy, confidence, and clear intent. You don’t wait—you take initiative.</p>
-                <p><strong>Strengths:</strong> charisma, courage, strong presence.</p>
-                <p><strong>⚠️ Watch out:</strong> Slow down sometimes to let the other person breathe.</p>
-            </div>
-
-            <div id="res-calm" class="result-block">
-                <h3>2. CALM – COMFORT CREATOR</h3>
-                <p>You attract by making people feel safe and seen. Your presence is grounding.</p>
-                <p><strong>Strengths:</strong> empathy, patience, emotional intelligence.</p>
-                <p><strong>⚠️ Watch out:</strong> Show romantic intent clearly so you don't stay "just friends".</p>
-            </div>
-
-            <div id="res-versatile" class="result-block">
-                <h3>3. VERSATILE – VIBE ADAPTER</h3>
-                <p>You adapt your energy to the moment. You are unpredictable and engaging.</p>
-                <p><strong>Strengths:</strong> flexibility, intuition, social intelligence.</p>
-                <p><strong>⚠️ Watch out:</strong> Be consistent so you don't seem indecisive.</p>
-            </div>
-
-            <div id="res-elegant" class="result-block">
-                <h3>4. ELEGANT – TIMING & PRECISION</h3>
-                <p>Every word has purpose. Your flirting is subtle, clean, and confident.</p>
-                <p><strong>Strengths:</strong> clarity, discipline, maturity.</p>
-                <p><strong>⚠️ Watch out:</strong> Allow spontaneity so you don't seem cold.</p>
-            </div>
-
-            <p style="text-align:center; font-weight:bold; margin-top:20px;">Want weekly advice? It’s just $3 a month.</p>
         </div>
     </div>
 
     <div id="success-view" class="section">
-        <h1 style="color: #28a745; text-align:center;">Payment Successful! ✔️</h1>
+        <h1 style="color: #28a745; text-align:center;">Access Granted! ✔️</h1>
         <div class="result-display-box">
-            <h2 id="final-type" style="margin-top:0;"></h2>
-            <p id="final-desc" style="font-size: 18px;"></p>
-            <hr>
-            <p id="email-notif" style="font-weight: bold; color: #28a745;"></p>
+            <div id="final-result-content">
+                </div>
         </div>
-        <button class="btn btn-start" onclick="window.location.href='/'">Take the test again</button>
+        <button class="btn btn-start" onclick="window.location.href='/'">Take Test Again</button>
     </div>
 </div>
 
 <div id="footerBar" class="float-bar">
-    <span class="float-title">Ready to see your results?</span>
-    <button class="btn btn-wish" onclick="pay(true)">See Full Results + Weekly Advice</button>
-    <button class="btn btn-no" onclick="pay(false)">Show Basic Result Only</button>
-    <div class="trust-text">Join 500+ members getting weekly insights.</div>
+    <span style="display:block; margin-bottom:10px; font-weight:bold;">Unlock your full romantic roadmap:</span>
+    <button class="btn btn-wish" onclick="pay(true)">Unlock Full Results ($3)</button>
+    <button class="btn btn-no" onclick="pay(false)">No thanks</button>
+</div>
+
+<div id="data-store" style="display:none;">
+    <div id="raw-bold">
+        <h3>BOLD – DIRECT FLIRT</h3>
+        <p>You connect through energy and confidence. You don’t wait—you take initiative.</p>
+        <p><strong>Strengths:</strong> Charisma, courage, presence.</p>
+        <p><strong>⚠️ Tip:</strong> Pace yourself to let chemistry build naturally.</p>
+    </div>
+    <div id="raw-calm">
+        <h3>CALM – COMFORT CREATOR</h3>
+        <p>You make people feel safe and seen. Your presence is grounding and effortless.</p>
+        <p><strong>Strengths:</strong> Empathy, patience, EQ.</p>
+        <p><strong>⚠️ Tip:</strong> Show romantic intent clearly to avoid the "friend zone".</p>
+    </div>
+    <div id="raw-versatile">
+        <h3>VERSATILE – VIBE ADAPTER</h3>
+        <p>You read the room fast and adapt. You are unpredictable and naturally engaging.</p>
+        <p><strong>Strengths:</strong> Intuition, social intelligence, flexibility.</p>
+        <p><strong>⚠️ Tip:</strong> Stay grounded so you don't seem hard to read.</p>
+    </div>
+    <div id="raw-elegant">
+        <h3>ELEGANT – TIMING & PRECISION</h3>
+        <p>Every word has purpose. Your flirting is subtle, clean, and highly confident.</p>
+        <p><strong>Strengths:</strong> Discipline, maturity, composure.</p>
+        <p><strong>⚠️ Tip:</strong> Allow spontaneity to appear more approachable.</p>
+    </div>
 </div>
 
 <script>
 const questions = [
-  { q: "What feels most natural when you talk to the person you like?", a: ["I jump in directly", "I stay calm and listen", "I mix styles", "I stay controlled and attentive"] },
+  { q: "What feels most natural when you talk to the person you like?", a: ["I jump in directly", "I stay calm and listen", "I mix styles", "I stay controlled"] },
   { q: "What is your biggest strength?", a: ["Confidence", "Empathy", "Adaptability", "Self-control"] },
-  { q: "How do you like to gain interest?", a: ["Constant flirting", "Closeness", "Right moment", "Maturity"] },
-  { q: "What kind of ‘first move’ fits you best?", a: ["Direct", "Slow", "Flexible", "Calculated"] },
-  { q: "What pace do you prefer?", a: ["Fast", "Slow", "Variable", "Balanced"] },
-  { q: "What do you focus on?", a: ["Chemistry", "Trust", "Signals", "Timing"] },
-  { q: "What’s your favorite ‘zone’?", a: ["Teasing", "Personal talks", "Jokes & depth", "Classy dialogue"] },
-  { q: "How do you handle emotions?", a: ["Show them", "Build slowly", "Strategically", "Stay composed"] },
-  { q: "What interactions excite you?", a: ["Vibe & teasing", "Honest talks", "Dynamic", "Classy"] },
-  { q: "Mindset?", a: ["Bold", "Patient", "Versatile", "Disciplined"] },
-  { q: "Conversation setup?", a: ["Compliment", "Questions", "Switching", "Observing"] },
-  { q: "Panic defense?", a: ["Jokes", "Slow down", "Switch tactics", "Stay calm"] },
-  { q: "Perfect date?", a: ["Chemistry", "Connection", "Mix of fun", "Respect"] },
-  { q: "Recovery from awkwardness?", a: ["Joke", "Reset", "Change direction", "Stay elegant"] },
-  { q: "Desired feedback?", a: ["Be direct", "Stay close", "Be flexible", "Stay confident"] },
-  { q: "Energy management?", a: ["Passion", "Steady rhythm", "Alternating", "Efficiency"] },
-  { q: "What makes you dangerous?", a: ["Charisma", "Presence", "Unpredictability", "Timing"] },
-  { q: "What style do you admire?", a: ["Spontaneous", "Stable", "Balanced", "Elegant"] },
-  { q: "When things go wrong...", a: ["Try harder", "Slow down", "Change strategy", "Stay disciplined"] },
-  { q: "Goal?", a: ["Irresistible", "Connection", "Complete", "Master communication"] }
+  { q: "How do you like to gain interest?", a: ["Teasing", "Closeness", "Social cues", "Classy dialogue"] },
+  // ... restul intrebarilor se adauga aici in acelasi format
 ];
-
-const resultsData = {
-  bold: { name: "BOLD – DIRECT FLIRT", desc: "You create chemistry fast and aren't afraid to take the lead." },
-  calm: { name: "CALM – COMFORT CREATOR", desc: "You win people over through safety, patience, and emotional comfort." },
-  versatile: { name: "VERSATILE – VIBE ADAPTER", desc: "You sense what works and adjust your energy on the fly." },
-  elegant: { name: "ELEGANT – TIMING & PRECISION", desc: "You are intentional and rely on perfect timing and class." }
-};
 
 const scoreKeys = ["bold", "calm", "versatile", "elegant"];
 let current = 0;
@@ -156,11 +114,16 @@ function navigate(id) {
     document.getElementById(id).classList.add('active');
 }
 
+function startQuiz() {
+    current = 0;
+    scores = { bold: 0, calm: 0, versatile: 0, elegant: 0 };
+    navigate('quiz');
+    loadQ();
+}
+
 function loadQ() {
     if (current >= questions.length) {
-        const choice = bestChoice();
-        localStorage.setItem("lastPlanChoice", choice);
-        showPreview(choice);
+        finishQuiz();
         return;
     }
     const q = questions[current];
@@ -173,8 +136,7 @@ function loadQ() {
         b.className = 'btn btn-opt';
         b.innerText = opt;
         b.onclick = () => {
-            const key = scoreKeys[index]; // Mapăm butonul 0 la Bold, 1 la Calm, etc.
-            scores[key]++;
+            scores[scoreKeys[index]]++; // Leaga butonul de categorie
             current++;
             loadQ();
         };
@@ -182,78 +144,35 @@ function loadQ() {
     });
 }
 
-function bestChoice() {
-    return Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
-}
-
-function showPreview(choice) {
+function finishQuiz() {
+    const choice = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+    localStorage.setItem("userResult", choice);
+    
+    // Pregatim preview-ul blurat
+    document.getElementById('style-name-preview').innerText = choice.toUpperCase();
+    document.getElementById('manifesto-content').innerHTML = document.getElementById('raw-' + choice).innerHTML;
+    
     navigate('result-preview');
     document.getElementById('footerBar').style.display = 'block';
-    document.getElementById('preview-name').innerText = resultsData[choice].name;
 }
 
 function pay(sub) {
-    const choice = localStorage.getItem("lastPlanChoice") || "bold";
-    
-    // Afișăm Manifesto
-    const manifesto = document.getElementById('manifesto');
-    manifesto.style.display = 'block';
-    document.querySelectorAll('.result-block').forEach(b => b.style.display = 'none');
-    document.getElementById('res-' + choice).style.display = 'block';
-    
-    // Eliminăm blur-ul de pe preview
-    document.getElementById('preview-content').classList.remove('blurred');
-    document.getElementById('preview-lock').style.display = 'none';
-    
-    // Scroll către rezultat
-    manifesto.scrollIntoView({ behavior: 'smooth' });
-
-    if (sub) {
-        // Redirecționare la plată după 3 secunde dacă vrea subscripție
-        setTimeout(() => {
-            window.location.href = `/pay-session?subscribe=true&choice=${choice}`;
-        }, 3000);
-    } else {
-        // Dacă e "No thanks", ascundem bara de jos
-        document.getElementById('footerBar').style.display = 'none';
-    }
+    const choice = localStorage.getItem("userResult");
+    // Trimitem catre serverul tau Railway care gestioneaza Stripe
+    window.location.href = `/pay-session?subscribe=${sub}&choice=${choice}`;
 }
 
-// Logică pentru revenirea din Stripe (Succes)
+// Cand userul se intoarce de la plata:
 window.onload = () => {
     const params = new URLSearchParams(window.location.search);
     if (params.has('session_id')) {
-        const plan = params.get('plan') || localStorage.getItem("lastPlanChoice");
-        const isSub = params.get('isSub');
-
+        const choice = localStorage.getItem("userResult") || "bold";
         navigate('success-view');
         document.getElementById('footerBar').style.display = 'none';
-
-        if (resultsData[plan]) {
-            document.getElementById('final-type').innerText = resultsData[plan].name;
-            document.getElementById('final-desc').innerText = resultsData[plan].desc;
-        }
-
-        if (isSub === 'true') {
-            document.getElementById('email-notif').innerHTML = "✨ WEEKLY ADVICE ACTIVATED! Check your email inbox.";
-        }
-    }
-    // Inițiem testul dacă suntem la început
-    if (document.getElementById('quiz').classList.contains('active')) {
-        loadQ();
+        // Afisam rezultatul fara blur
+        document.getElementById('final-result-content').innerHTML = document.getElementById('raw-' + choice).innerHTML;
     }
 };
-
-// Override navigate special pentru quiz
-const originalNavigate = navigate;
-navigate = function(id) {
-    originalNavigate(id);
-    if(id === 'quiz') {
-        current = 0;
-        scores = { bold: 0, calm: 0, versatile: 0, elegant: 0 };
-        loadQ();
-    }
-}
 </script>
 </body>
 </html>

@@ -144,6 +144,8 @@ What sets you apart: maturity and composure
     <span class="float-title">Make your subscribtion for weekly advices!</span>
     <button class="btn btn-wish" onclick="pay(true)">see the results + subscribtion</button>
     <button class="btn btn-no" onclick="pay(false)">No thanks, show only basic result</button>
+    <div id="manifesto" style="display: none; margin-top: 30px; padding: 20px; border: 1px solid #ddd;">
+    </div>
     <div class="trust-text">One-time payment • Instant access • No automatic subscription</div>
     <div class=for "btn-wish" , "btn-no" print("manifesto")</div>
     
@@ -204,30 +206,30 @@ const questions = [
     let scores = buildScores();
 
     const previewPoints = {
-        striker: [
-            "Pressure-first offense and heavy hands",
-            "Inside combinations and body work",
-            "Conditioning to keep a high pace",
-            "Short, explosive hooks and uppercuts"
-        ],
-        grappler: [
-            "Clinch entries and control positions",
-            "Balance, leverage, and smothering pressure",
-            "Dirty boxing and short strikes",
-            "Patience to break opponents down"
-        ],
-        hybrid: [
-            "Blend pressure with control",
-            "Switch ranges and tactics smoothly",
-            "Unpredictable rhythm and timing",
-            "Well-rounded skill development"
-        ],
-        traditional: [
-            "Clean jab and sharp counters",
-            "Footwork and distance control",
-            "Disciplined defense and composure",
-            "Efficiency over wasted motion"
-        ]
+        bold: [
+        "Passion-first approach and deep emotional impact",
+        "Intimate connections and heart-to-heart depth",
+        "High energy to keep the romance alive",
+        "Spontaneous, explosive gestures of affection"
+    ],
+    calm: [
+        "Soulful presence and emotional safety",
+        "Balance, patience, and grounding support",
+        "Gentle whispers and meaningful small touches",
+        "Deep calmness to heal and soothe the partner"
+    ],
+    versatile: [
+        "Seamlessly blends passion with stability",
+        "Adapts to any emotional season or situation",
+        "Intuitive rhythm and understanding of needs",
+        "Well-rounded commitment to personal growth"
+    ],
+    elegant: [
+        "Poetic communication and emotional intelligence",
+        "Respect for boundaries and healthy space",
+        "Graceful devotion and unwavering composure",
+        "Meaningful quality over wasted efforts"
+    ]
     };
 
     function bestChoice() {
@@ -334,6 +336,7 @@ const questions = [
 </script>
 </body>
 </html>
+
 
 
 
